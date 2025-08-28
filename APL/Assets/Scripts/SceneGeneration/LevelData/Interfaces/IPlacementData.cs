@@ -6,6 +6,9 @@ namespace ALP.SceneGeneration.LevelData
     {
         ITileMapData ObstaclesMapData { get; }
         ITileMapData BoundsMapData { get; }
+        ITileMapData BoundAreaData { get; }
+        ITileMapData InteractableAreaData { get; }
+        ITileMapData ExitAreaData { get; }
         GridLayout BaseGrid { get; }
     }
 }

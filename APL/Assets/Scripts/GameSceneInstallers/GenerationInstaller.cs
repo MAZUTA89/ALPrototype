@@ -11,7 +11,7 @@ namespace ALP.Scripts.GameSceneInstallers
 {
     public class GenerationInstaller : MonoInstaller
     {
-        [SerializeField] private LevelSO LevelSO;
+        [SerializeField] private LevelSO _levelSO;
         [SerializeField] private GridLayout _gameGridComponent;
         IGameGrid _gameGrid;
 
@@ -21,10 +21,10 @@ namespace ALP.Scripts.GameSceneInstallers
             _gameGrid = new GameGrid(_gameGridComponent);
 
 
-            _levelGenerator = new ALGenerator(_gameGrid, Container);
+            _levelGenerator = new ALSceneGenerator(_gameGrid, Container);
 
 
-            _levelGenerator.GenerateLevel(LevelSO);
+            _levelGenerator.GenerateLevel(_levelSO);
         }
     }
 }

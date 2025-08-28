@@ -12,6 +12,9 @@ namespace ALP.ALGridManagement
     {
         GridLayout GameGridLayout { get; }
         Dictionary<Vector3Int, GameObject> ObstaclesObjects { get; }
+        IEnumerable<Vector3Int> InteractableArea { get; }
+        IEnumerable<Vector3Int> BoundsArea { get; }
+        IEnumerable<Vector3Int> ExitArea { get; }
         Dictionary<Vector3Int, GameObject> BoundsObjects { get; }
 
         void Initialize(IPlacementData placementData);

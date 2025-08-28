@@ -7,41 +7,63 @@ namespace ALP.SceneGeneration.LevelData
 {
     public class TileMapData : ITileMapData
     {
-        public Tilemap Tilemap => _tileMap;
+        public Tilemap Tilemap => TileMap;
 
-        GridLayout _prefabGrid;
+        protected GridLayout PrefabGrid;
 
-        public IEnumerable<GameObject> MapChildrenObjects => _mapObjects;
+        public IEnumerable<GameObject> MapChildrenObjects => MapObjects;
 
-        public IEnumerable<Vector3Int> ObjectsGridPositions => _gridPositions;
+        public IEnumerable<Vector3Int> ObjectsGridPositions => GridPositions;
 
-        List<GameObject> _mapObjects;
-        List<Vector3Int> _gridPositions;
+        protected IEnumerable<GameObject> MapObjects;
+        protected IEnumerable<Vector3Int> GridPositions;
 
-        private Tilemap _tileMap;
+        protected Tilemap TileMap;
 
         public TileMapData(GridLayout gridLayout, Tilemap tilemap)
         {
-            _prefabGrid = gridLayout;
-            _tileMap = tilemap;
-            _mapObjects = new List<GameObject>();
-            _gridPositions = new List<Vector3Int>();
+            PrefabGrid = gridLayout;
+            TileMap = tilemap;
+            MapObjects = new List<GameObject>();
+            GridPositions = new List<Vector3Int>();
 
             Initialize();
         }
 
         public void Initialize()
         {
-            GameObject tileMapObject = _tileMap.gameObject;
+            MapObjects = GetChildrenObjects();
+            GridPositions = GetObjectsGridPositions();
+        }
+
+        public virtual IEnumerable<Vector3Int> GetObjectsGridPositions()
+        {
+            List<Vector3Int> positions = new List<Vector3Int>();
+
+            GameObject tileMapObject = TileMap.gameObject;
 
             foreach (Transform transform in tileMapObject.transform)
             {
-                _mapObjects.Add(transform.gameObject);
+                Vector3Int objGridPos = PrefabGrid.WorldToCell(transform.position);
 
-                Vector3Int objGridPos = _prefabGrid.WorldToCell(transform.position);
-
-                _gridPositions.Add(objGridPos);
+                positions.Add(objGridPos);
             }
+
+            return positions;
+        }
+
+        public virtual IEnumerable<GameObject> GetChildrenObjects()
+        {
+            List<GameObject> gameObjects = new List<GameObject>();
+
+            GameObject tileMapObject = TileMap.gameObject;
+
+            foreach (Transform transform in tileMapObject.transform)
+            {
+                gameObjects.Add(transform.gameObject);
+            }
+
+            return gameObjects;
         }
     }
 }

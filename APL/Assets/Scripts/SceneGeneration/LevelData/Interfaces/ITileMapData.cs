@@ -10,8 +10,11 @@ namespace ALP.SceneGeneration.LevelData
 {
     public interface ITileMapData
     {
-       Tilemap Tilemap { get; }
-       IEnumerable<GameObject> MapChildrenObjects { get; }
-       IEnumerable<Vector3Int> ObjectsGridPositions { get; }
+        Tilemap Tilemap { get; }
+        int Count { get; }
+        IEnumerable<GameObject> MapChildrenObjects { get; }
+        IEnumerable<Vector3Int> ObjectsGridPositions { get; }
+        IEnumerable<Vector3Int> GetObjectsGridPositions();
+        IEnumerable<GameObject> GetChildrenObjects();
     }
 }

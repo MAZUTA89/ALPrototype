@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a33222aae29dc44a73d6883e47c530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelSO: {fileID: 11400000, guid: af5d5ef70933fdc45892c8cb0ffd261a, type: 2}
+  _levelSO: {fileID: 11400000, guid: af5d5ef70933fdc45892c8cb0ffd261a, type: 2}
   _gameGridComponent: {fileID: 1388426045}
 --- !u!1 &1170117302
 GameObject:

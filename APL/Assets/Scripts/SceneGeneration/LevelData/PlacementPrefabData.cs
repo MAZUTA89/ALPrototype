@@ -7,8 +7,11 @@ namespace ALP.SceneGeneration.LevelData
     public class PlacementPrefabData : MonoBehaviour, IPlacementData
     {
         [SerializeField] GridLayout _baseGrid;
-        [SerializeField] Tilemap _obstaclesTileMap;
-        [SerializeField] Tilemap _boundsTileMap;
+        [SerializeField] Tilemap _obstaclesTilemap;
+        [SerializeField] Tilemap _boundsTilemap;
+        [SerializeField] Tilemap _interactableTilemap;
+        [SerializeField] Tilemap _boundsAreaTilemap;
+        [SerializeField] Tilemap _exitAreaTilemap;
 
         public ITileMapData ObstaclesMapData { get; protected set; }
 
@@ -16,11 +19,19 @@ namespace ALP.SceneGeneration.LevelData
 
         public ITileMapData BoundsMapData { get; protected set; }
 
+        public ITileMapData BoundAreaData { get; protected set; }
+
+        public ITileMapData InteractableAreaData { get; protected set; }
+
+        public ITileMapData ExitAreaData { get; protected set; }
 
         public void Initialize()
         {
-            ObstaclesMapData = new TileMapData(_baseGrid, _obstaclesTileMap);
-            BoundsMapData = new TileMapData(_baseGrid, _boundsTileMap);
+            ObstaclesMapData = new TileMapData(_baseGrid, _obstaclesTilemap);
+            BoundsMapData = new TileMapData(_baseGrid, _boundsTilemap);
+            BoundAreaData = new SpritesTilemapData(_baseGrid, _boundsAreaTilemap);
+            InteractableAreaData = new SpritesTilemapData(_baseGrid, _interactableTilemap);
+            ExitAreaData = new SpritesTilemapData(_baseGrid, _exitAreaTilemap);
         }
         protected virtual void Start()
         {

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a2c026dba2df746b07f0c325f4e198, type: 3}
   m_Name: LevelSO
   m_EditorClassIdentifier: 
-  LevelGridPrefab: {fileID: 5184031706359822898, guid: 9987fc00f3f1b914681b237d7b4de048, type: 3}
+  LevelGridPrefab: {fileID: 2741060681019070217, guid: f4e4151d3cf07204cb58816f0a474e6c, type: 3}

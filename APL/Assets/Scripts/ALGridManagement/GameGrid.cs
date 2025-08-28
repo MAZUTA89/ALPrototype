@@ -16,10 +16,19 @@ namespace ALP.ALGridManagement
 
         public Dictionary<Vector3Int, GameObject> BoundsObjects => _boundsObjects;
 
+        public IEnumerable<Vector3Int> InteractableArea => _interactablePositions;
+
+        public IEnumerable<Vector3Int> BoundsArea => _boundsPositions;
+
+        public IEnumerable<Vector3Int> ExitArea => _exitPositions;
+
         GridLayout _gameSceneGrid;
 
         private Dictionary<Vector3Int, GameObject> _obstaclesObjects;
         private Dictionary<Vector3Int, GameObject> _boundsObjects;
+        private List<Vector3Int> _interactablePositions;
+        private List<Vector3Int> _boundsPositions;
+        private List<Vector3Int> _exitPositions;
 
         public GameGrid(GridLayout gameGrid)
         {
@@ -29,6 +38,12 @@ namespace ALP.ALGridManagement
         }
 
         public void Initialize(IPlacementData placementData)
+        {
+            _obstaclesObjects = new List<Vector3Int>
+                (placementData.ObstaclesMapData.ObjectsGridPositions);
+        }
+
+        void InitializeObstacleObjects(ITileMapData obstaclesData)
         {
 
         }
