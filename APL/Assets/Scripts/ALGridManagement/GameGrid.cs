@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 namespace ALP.ALGridManagement
 {
     public class GameGrid : IGameGrid
     {
+        #region InterfaceVariables
         public GridLayout GameGridLayout => _gameSceneGrid;
 
         public Dictionary<Vector3Int, GameObject> ObstaclesObjects => _obstaclesObjects;
@@ -21,6 +23,7 @@ namespace ALP.ALGridManagement
         public IEnumerable<Vector3Int> BoundsArea => _boundsPositions;
 
         public IEnumerable<Vector3Int> ExitArea => _exitPositions;
+        #endregion
 
         GridLayout _gameSceneGrid;
 
@@ -39,13 +42,36 @@ namespace ALP.ALGridManagement
 
         public void Initialize(IPlacementData placementData)
         {
-            _obstaclesObjects = new List<Vector3Int>
-                (placementData.ObstaclesMapData.ObjectsGridPositions);
+            
+            ITileMapData obstacleData = placementData.ObstaclesMapData;
+
+            foreach (var cell in obstacleData)
+            {
+                if (_obstaclesObjects.TryAdd(cell.GridPosition,
+                    cell.Object) == false)
+                {
+                    Debug.LogError($"Не удается добавить данные препятствия уровня на" +
+                    $" {cell.GridPosition} в объекте {cell.Object.name}");
+                }
+            }
+
+            ITileMapData interactableData = placementData.InteractableAreaData;
+
+            _interactablePositions = new List<Vector3Int>(interactableData.ObjectsGridPositions);
+
+            ITileMapData exitData = placementData.ExitAreaData;
+
+            _exitPositions = new List<Vector3Int>(exitData.ObjectsGridPositions);
+
         }
 
-        void InitializeObstacleObjects(ITileMapData obstaclesData)
+        public bool IsInteractableArea(Vector3Int position)
         {
-
+            return _interactablePositions.Contains(position);
+        }
+        public bool IsExitArea(Vector3Int position)
+        {
+            return _exitPositions.Contains(position);
         }
     }
 }

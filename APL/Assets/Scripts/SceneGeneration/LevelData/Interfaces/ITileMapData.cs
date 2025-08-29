@@ -8,10 +8,11 @@ using UnityEngine.Tilemaps;
 
 namespace ALP.SceneGeneration.LevelData
 {
-    public interface ITileMapData
+    public interface ITileMapData : IEnumerable<PrefabCell>
     {
         Tilemap Tilemap { get; }
         int Count { get; }
+        IEnumerable<PrefabCell> PrefabCells { get; }
         IEnumerable<GameObject> MapChildrenObjects { get; }
         IEnumerable<Vector3Int> ObjectsGridPositions { get; }
         IEnumerable<Vector3Int> GetObjectsGridPositions();

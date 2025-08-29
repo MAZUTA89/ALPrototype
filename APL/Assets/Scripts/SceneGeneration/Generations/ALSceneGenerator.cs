@@ -15,6 +15,9 @@ namespace ALP.SceneGeneration.Generations
     {
         IGameGrid _gameGrid;
         IInstantiator _instantiator;
+
+        public event Action OnSceneGenerated;
+
         public ALSceneGenerator(IGameGrid gameGrid, IInstantiator instantiator)
         {
             _gameGrid = gameGrid;
@@ -29,6 +32,8 @@ namespace ALP.SceneGeneration.Generations
                 prefabData.Initialize();
                 PlaceBoundObjectsAtScene(prefabData);
                 PlaceObstacleObjectsAtScene(prefabData);
+
+                OnSceneGenerated?.Invoke();
             }
             else
             {

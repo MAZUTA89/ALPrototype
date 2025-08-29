@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,8 +17,13 @@ namespace ALP.SceneGeneration.LevelData
 
         public IEnumerable<Vector3Int> ObjectsGridPositions => GridPositions;
 
+        public int Count => PrefabCells.Count();
+
+        public IEnumerable<PrefabCell> PrefabCells => ObjectsPrefabCells;
+
         protected IEnumerable<GameObject> MapObjects;
         protected IEnumerable<Vector3Int> GridPositions;
+        protected List<PrefabCell> ObjectsPrefabCells;
 
         protected Tilemap TileMap;
 
@@ -26,14 +33,22 @@ namespace ALP.SceneGeneration.LevelData
             TileMap = tilemap;
             MapObjects = new List<GameObject>();
             GridPositions = new List<Vector3Int>();
+            ObjectsPrefabCells = new List<PrefabCell>();
 
             Initialize();
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             MapObjects = GetChildrenObjects();
             GridPositions = GetObjectsGridPositions();
+
+            for (int i = 0; i < GridPositions.Count(); i++)
+            {
+                PrefabCell prefabCell = new(MapObjects.ElementAt(i), GridPositions.ElementAt(i));
+
+                ObjectsPrefabCells.Add(prefabCell);
+            }
         }
 
         public virtual IEnumerable<Vector3Int> GetObjectsGridPositions()
@@ -64,6 +79,15 @@ namespace ALP.SceneGeneration.LevelData
             }
 
             return gameObjects;
+        }
+        public IEnumerator<PrefabCell> GetEnumerator()
+        {
+            return PrefabCells.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return PrefabCells.GetEnumerator();
         }
     }
 }

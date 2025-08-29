@@ -18,6 +18,17 @@ namespace ALP.SceneGeneration.LevelData
         {
         }
 
+        public override void Initialize()
+        {
+            MapObjects = GetChildrenObjects();
+            GridPositions = GetObjectsGridPositions();
+
+            for (int i = 0; i < GridPositions.Count(); i++)
+            {
+                PrefabCell prefabCell = new PrefabCell(null, ObjectsGridPositions.ElementAt(i));
+            }
+        }
+
         public override IEnumerable<Vector3Int> GetObjectsGridPositions()
         {
             List<Vector3Int> positions = new List<Vector3Int>();

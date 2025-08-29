@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78958f14cda2ddd468c215b6dbc2059c, type: 3}
   m_Name: PrefabBrush
   m_EditorClassIdentifier: 
-  m_Cells: []
+  m_Cells:
+  - m_GameObject: {fileID: 4712953611064357245, guid: 69e680279eb95bc48b7bce05ace64381, type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 0, y: 0, z: 0}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
   m_Size: {x: 1, y: 1, z: 1}
   m_Pivot: {x: 0, y: 0, z: 0}
   m_CanChangeZPosition: 0

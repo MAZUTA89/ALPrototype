@@ -25,6 +25,10 @@ namespace ALP.Scripts.GameSceneInstallers
 
 
             _levelGenerator.GenerateLevel(_levelSO);
+
+
+            Container.BindInstance(_gameGrid).AsSingle();
+            Container.BindInstance(_levelGenerator).AsSingle();
         }
     }
 }

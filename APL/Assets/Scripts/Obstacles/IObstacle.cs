@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,6 +6,9 @@ namespace ALP.Obstacles
 {
     public interface IObstacle
     {
-        Vector2Int Position { get; }
+        Vector3Int Position { get; }
+
+        void OnStartDrag();
+        void OnEndDrag();
     }
 }
