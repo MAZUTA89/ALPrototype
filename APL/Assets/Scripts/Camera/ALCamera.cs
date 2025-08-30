@@ -65,8 +65,6 @@ namespace ALP.CameraCode
             _targetPosition = new Vector3(transform.position.x + movement.x, transform.position.y,
                 transform.position.z + movement.y);
 
-            Debug.Log(_cameraInputService.MouseWheel().y);
-
             if(_cameraInputService.MouseWheel().y < 0)
             {
                 _vcComponent.m_Lens.FieldOfView += Time.deltaTime * _cameraSO.CameraUpDownSpeed;
