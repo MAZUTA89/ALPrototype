@@ -19,14 +19,22 @@ namespace ALP.Interactables
 
         public void OnMouseClick()
         {
+            Debug.Log(gameObject.name + " Clicked");
         }
 
         public void OnMouseStartDrag()
         {
+            Debug.Log(gameObject.name + " Start drag");
         }
 
         public void OnMouseStopDrag()
         {
+            Debug.Log(gameObject.name + " End drag");
+        }
+
+        public void OnDrag()
+        {
+            Debug.Log(gameObject.name + " Dragging");
         }
     }
 }

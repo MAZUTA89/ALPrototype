@@ -22,11 +22,13 @@ namespace ALP.InputCode.MouseInput
 
         private void OnEndDrag(InputAction.CallbackContext context)
         {
+            OnEndDragEvent?.Invoke(context);
             IsDragging = false;
         }
 
         private void OnStartDrag(InputAction.CallbackContext context)
         {
+            OnStartDragEvent?.Invoke(context);
             IsDragging = true;
         }
 

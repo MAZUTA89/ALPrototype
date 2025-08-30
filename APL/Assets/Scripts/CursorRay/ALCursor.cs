@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 using ALP.Interactables;
+using ALP.InputCode.MouseInput;
+using TMPro;
 
 namespace ALP.CursorRay
 {
@@ -12,27 +14,57 @@ namespace ALP.CursorRay
     {
         ALCamera _camera;
 
+        IFurnitureInputService _furnitureInput;
+        IInteractable _currentDragObject;
+
         [Inject]
-        public void Construct(ALCamera camera)
+        public void Construct(ALCamera camera,
+            IFurnitureInputService furnitureInput)
         {
             _camera = camera;
+            _furnitureInput = furnitureInput;
         }
 
         #region UnityMethods
+        private void Start()
+        {
+            _furnitureInput.OnStartDragEvent += OnStartDrag;
+            _furnitureInput.OnEndDragEvent += OnEndDrag;
+        }
+        private void OnDestroy()
+        {
+            _furnitureInput.OnStartDragEvent -= OnStartDrag;
+            _furnitureInput.OnEndDragEvent -= OnEndDrag;
+            _furnitureInput.Dispose();
+        }
         private void Update()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if(Physics.Raycast(ray, out RaycastHit hitInfo))
+            if (_furnitureInput.IsDragging)
             {
-                GameObject hitObj = hitInfo.collider.gameObject;
-
-                if(hitObj.TryGetComponent(out IInteractable interactable))
-                {
-                    interactable.OnMouseClick();
-                }
+                _currentDragObject?.OnDrag();
             }
         }
         #endregion
+
+        private void OnStartDrag(InputAction.CallbackContext context)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                GameObject hitObj = hitInfo.collider.gameObject;
+
+                if (hitObj.TryGetComponent(out IInteractable interactable))
+                {
+                    _currentDragObject = interactable;
+                    _currentDragObject.OnMouseStartDrag();
+                }
+            }
+        }
+
+        private void OnEndDrag(InputAction.CallbackContext context)
+        {
+            _currentDragObject?.OnMouseStopDrag();
+        }
     }
 }

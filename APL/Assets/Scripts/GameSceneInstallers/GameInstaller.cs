@@ -4,6 +4,7 @@ using Zenject;
 using UnityEngine;
 using ALP.GameData.Camera;
 using ALP.Interactables;
+using ALP.CursorRay;
 
 namespace ALP.GameSceneInstallers
 {
@@ -16,6 +17,10 @@ namespace ALP.GameSceneInstallers
 
             Container.BindInterfacesAndSelfTo<Furniture>()
                 .AsTransient();
+
+            Container.Bind<ALCursor>().
+                FromComponentInHierarchy(true)
+                .AsSingle();
         }
     }
 }

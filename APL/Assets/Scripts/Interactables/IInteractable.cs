@@ -8,5 +8,6 @@ namespace ALP.Interactables
         void OnMouseClick();
         void OnMouseStartDrag();
         void OnMouseStopDrag();
+        void OnDrag();
     }
 }
