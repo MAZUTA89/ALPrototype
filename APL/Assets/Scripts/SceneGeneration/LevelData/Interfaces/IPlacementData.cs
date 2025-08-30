@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
+using UnityEngine;
 
 namespace ALP.SceneGeneration.LevelData
 {
     public interface IPlacementData
     {
+        CinemachineVirtualCamera Camera { get; }
         ITileMapData ObstaclesMapData { get; }
         ITileMapData BoundsMapData { get; }
         ITileMapData BoundAreaData { get; }

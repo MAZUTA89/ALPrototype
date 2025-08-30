@@ -1,6 +1,8 @@
 ﻿using ALP.ALGridManagement;
+using ALP.Camera;
 using ALP.GameData.GameLevelData;
 using ALP.SceneGeneration.LevelData;
+using Cinemachine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +17,16 @@ namespace ALP.SceneGeneration.Generations
     {
         IGameGrid _gameGrid;
         IInstantiator _instantiator;
+        ALCamera _cameraObject;
 
         public event Action OnSceneGenerated;
 
-        public ALSceneGenerator(IGameGrid gameGrid, IInstantiator instantiator)
+        public ALSceneGenerator(IGameGrid gameGrid, IInstantiator instantiator,
+            ALCamera cameraObject)
         {
             _gameGrid = gameGrid;
             _instantiator = instantiator;
+            _cameraObject = cameraObject;
         }
         public void GenerateLevel(LevelSO levelSO)
         {
@@ -32,6 +37,8 @@ namespace ALP.SceneGeneration.Generations
                 prefabData.Initialize();
                 PlaceBoundObjectsAtScene(prefabData);
                 PlaceObstacleObjectsAtScene(prefabData);
+
+                _cameraObject.Initialize(prefabData.Camera);
 
                 OnSceneGenerated?.Invoke();
             }
@@ -65,6 +72,5 @@ namespace ALP.SceneGeneration.Generations
                     _gameGrid.GameGridLayout.transform);
             }
         }
-
     }
 }

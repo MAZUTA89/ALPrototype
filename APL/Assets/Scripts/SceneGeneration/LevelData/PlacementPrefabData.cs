@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,6 +7,7 @@ namespace ALP.SceneGeneration.LevelData
 {
     public class PlacementPrefabData : MonoBehaviour, IPlacementData
     {
+        [SerializeField] CinemachineVirtualCamera _camera;
         [SerializeField] GridLayout _baseGrid;
         [SerializeField] Tilemap _obstaclesTilemap;
         [SerializeField] Tilemap _boundsTilemap;
@@ -24,6 +26,8 @@ namespace ALP.SceneGeneration.LevelData
         public ITileMapData InteractableAreaData { get; protected set; }
 
         public ITileMapData ExitAreaData { get; protected set; }
+
+        public CinemachineVirtualCamera Camera => _camera;
 
         public void Initialize()
         {

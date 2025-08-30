@@ -16,7 +16,8 @@ namespace ALP.ALGridManagement
         IEnumerable<Vector3Int> BoundsArea { get; }
         IEnumerable<Vector3Int> ExitArea { get; }
         Dictionary<Vector3Int, GameObject> BoundsObjects { get; }
-
+        bool IsInteractableArea(Vector3Int position);
+        bool IsExitArea(Vector3Int position);
         void Initialize(IPlacementData placementData);
     }
 }
