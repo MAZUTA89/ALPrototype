@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ALP.InputCode.MouseInput;
+using System;
 using UnityEngine;
+using Zenject;
 
 namespace ALP.Interactables
 {
-    public class Furniture : IInteractable, IObstacle
+    public class Furniture : MonoBehaviour, IInteractable, IObstacle
     {
-        public Vector3Int Position => throw new NotImplementedException();
+        public Vector3Int Position { get; private set; }
+
+        IFurnitureInputService _furnitureInputController;
+
+        [Inject]
+        public void Construct(IFurnitureInputService furnitureInputService)
+        {
+            _furnitureInputController = furnitureInputService;
+        }
 
         public void OnMouseClick()
         {
-            throw new NotImplementedException();
         }
 
         public void OnMouseStartDrag()
         {
-            throw new NotImplementedException();
         }
 
         public void OnMouseStopDrag()
         {
-            throw new NotImplementedException();
         }
     }
 }

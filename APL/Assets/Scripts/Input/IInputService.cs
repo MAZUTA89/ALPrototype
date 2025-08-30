@@ -9,6 +9,7 @@ namespace ALP.InputCode
         ALInput MainMap { get; }
         void Enable();
         void Disable();
+        void Dispose();
         
     }
 }

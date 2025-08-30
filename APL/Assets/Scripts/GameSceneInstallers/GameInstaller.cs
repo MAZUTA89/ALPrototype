@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Zenject;
 using UnityEngine;
 using ALP.GameData.Camera;
+using ALP.Interactables;
 
 namespace ALP.GameSceneInstallers
 {
@@ -12,6 +13,9 @@ namespace ALP.GameSceneInstallers
         public override void InstallBindings()
         {
             Container.BindInstance(CameraSO).AsSingle();
+
+            Container.BindInterfacesAndSelfTo<Furniture>()
+                .AsTransient();
         }
     }
 }

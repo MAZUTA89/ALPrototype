@@ -1,6 +1,7 @@
 ﻿using Zenject;
 using ALP.InputCode;
 using ALP.InputCode.CameraInput;
+using ALP.InputCode.MouseInput;
 
 namespace ALP.GameSceneInstallers
 {
@@ -15,6 +16,9 @@ namespace ALP.GameSceneInstallers
 
             Container.Bind<ICameraInputService>()
                 .To<CameraInputService>().AsSingle();
+
+            Container.Bind<IFurnitureInputService>()
+                .To<FurnitureInputService>().AsSingle();
         }
     }
 }

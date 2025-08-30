@@ -26,13 +26,14 @@ namespace ALP.Scripts.GameSceneInstallers
 
             _levelGenerator = new ALSceneGenerator(_gameGrid, Container, _gameCameraObject);
 
-
-            _levelGenerator.GenerateLevel(_levelSO);
-
-
             Container.BindInstance(_gameGrid).AsSingle();
             Container.BindInstance(_levelGenerator).AsSingle();
             Container.BindInstance(_gameCameraObject).AsSingle();
+        }
+
+        public override void Start()
+        {
+            _levelGenerator.GenerateLevel(_levelSO);
         }
     }
 }
