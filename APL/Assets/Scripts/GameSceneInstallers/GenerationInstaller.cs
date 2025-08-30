@@ -7,7 +7,7 @@ using ALP.SceneGeneration.Generations;
 using ALP.SceneGeneration.LevelData;
 using ALP.ALGridManagement;
 using Cinemachine;
-using ALP.Camera;
+using ALP.CameraCode;
 
 namespace ALP.Scripts.GameSceneInstallers
 {

@@ -1,28 +1,29 @@
 ﻿using ALP.GameData.Camera;
-using ALP.Input;
+using ALP.InputCode;
+using ALP.InputCode.CameraInput;
 using Cinemachine;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace ALP.Camera
+namespace ALP.CameraCode
 {
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class ALCamera : MonoBehaviour
     {
         CinemachineVirtualCamera _vcComponent;
 
-        IInputSystem _inputSystem;
+        ICameraInputService _cameraInputService;
 
         Vector2 _direction;
         Vector3 _targetPosition;
         CameraSO _cameraSO;
 
         [Inject]
-        public void Construct(IInputSystem inputSystem, CameraSO cameraSO)
+        public void Construct(ICameraInputService cameraInputService, CameraSO cameraSO)
         {
-            _inputSystem = inputSystem;
+            _cameraInputService = cameraInputService;
             _cameraSO = cameraSO;
         }
 
@@ -57,25 +58,26 @@ namespace ALP.Camera
 
         void UpdateMovement()
         {
-            _direction = _inputSystem.GetWASDDirection();
+            _direction = _cameraInputService.GetWASDDirection();
 
             Vector2 movement = _direction * _cameraSO.Camera2dMovementSpeed;
 
             _targetPosition = new Vector3(transform.position.x + movement.x, transform.position.y,
                 transform.position.z + movement.y);
 
-            Debug.Log(_inputSystem.MouseWheel().y);
+            Debug.Log(_cameraInputService.MouseWheel().y);
 
-            if(_inputSystem.MouseWheel().y < 0)
+            if(_cameraInputService.MouseWheel().y < 0)
             {
                 _vcComponent.m_Lens.FieldOfView += Time.deltaTime * _cameraSO.CameraUpDownSpeed;
             }
-            else if(_inputSystem.MouseWheel().y > 0)
+            else if(_cameraInputService.MouseWheel().y > 0)
             {
                 _vcComponent.m_Lens.FieldOfView -= Time.deltaTime * _cameraSO.CameraUpDownSpeed;
             }
 
-            _vcComponent.m_Lens.FieldOfView = Mathf.Clamp(_vcComponent.m_Lens.FieldOfView, _cameraSO.FOVMin, _cameraSO.FOVMax);
+            _vcComponent.m_Lens.FieldOfView = Mathf.Clamp(_vcComponent.m_Lens.FieldOfView,
+                _cameraSO.FOVMin, _cameraSO.FOVMax);
         }
 
     }

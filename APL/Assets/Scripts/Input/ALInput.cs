@@ -24,22 +24,22 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
     ""name"": ""ALInput"",
     ""maps"": [
         {
-            ""name"": ""Actions"",
-            ""id"": ""81c56775-4863-4048-8727-966d76abb07d"",
+            ""name"": ""CameraMap"",
+            ""id"": ""6165e99c-5bf6-4294-995a-c29ad75e5fc1"",
             ""actions"": [
                 {
-                    ""name"": ""CameraMovement"",
+                    ""name"": ""CameraWheel"",
                     ""type"": ""Value"",
-                    ""id"": ""eef9258d-b19d-4cfd-a0ee-a9ae170e8395"",
+                    ""id"": ""2eb49657-c886-4d7c-b54f-1d3e8087072b"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""CameraWheel"",
+                    ""name"": ""CameraMovement"",
                     ""type"": ""Value"",
-                    ""id"": ""cf9265cf-8fdc-402a-8d5c-97025fbf6a7b"",
+                    ""id"": ""3901c95f-a47e-4334-b96c-e11ddc6ff3c1"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -49,7 +49,7 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""2D Vector"",
-                    ""id"": ""10bc62db-8954-40cd-802f-34585d161058"",
+                    ""id"": ""561fd7d1-cdc4-4c90-a0cd-dc931bb8fc2a"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -60,7 +60,7 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""0845d5fe-56e8-4cfb-af3b-6134863378b5"",
+                    ""id"": ""668d632b-8016-499c-babe-b1e5b58bbad2"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -71,7 +71,7 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""647911bf-8e21-453f-aab5-d57f6fe3a4bd"",
+                    ""id"": ""3aacdaf1-573f-4cf2-9431-5bb1005e8561"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -82,7 +82,7 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""bbf07687-3ce4-4eb5-a127-2f894fb030b6"",
+                    ""id"": ""67f10c67-1610-42e0-8fec-0226fa9a67d0"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -93,7 +93,7 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""c5aad941-24dc-48bd-b57e-ef212edb8b21"",
+                    ""id"": ""34db17ae-5641-4def-b1f4-018848ba5f67"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -104,12 +104,40 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b40d07b4-db33-4585-bb36-1e293b61d225"",
+                    ""id"": ""5dffa073-cfd9-40ff-81e2-e99e251c3f2f"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CameraWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""FurnitureInteractionMap"",
+            ""id"": ""986ca2c9-1178-40c2-9636-36b7aee6894b"",
+            ""actions"": [
+                {
+                    ""name"": ""MoveFurniture"",
+                    ""type"": ""Button"",
+                    ""id"": ""3e166299-4983-42a9-a89c-203c4ecadd3e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""589bcef2-52f4-420c-8b48-9e293063b7ae"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveFurniture"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -135,10 +163,13 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Actions
-        m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
-        m_Actions_CameraMovement = m_Actions.FindAction("CameraMovement", throwIfNotFound: true);
-        m_Actions_CameraWheel = m_Actions.FindAction("CameraWheel", throwIfNotFound: true);
+        // CameraMap
+        m_CameraMap = asset.FindActionMap("CameraMap", throwIfNotFound: true);
+        m_CameraMap_CameraWheel = m_CameraMap.FindAction("CameraWheel", throwIfNotFound: true);
+        m_CameraMap_CameraMovement = m_CameraMap.FindAction("CameraMovement", throwIfNotFound: true);
+        // FurnitureInteractionMap
+        m_FurnitureInteractionMap = asset.FindActionMap("FurnitureInteractionMap", throwIfNotFound: true);
+        m_FurnitureInteractionMap_MoveFurniture = m_FurnitureInteractionMap.FindAction("MoveFurniture", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -197,59 +228,105 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Actions
-    private readonly InputActionMap m_Actions;
-    private List<IActionsActions> m_ActionsActionsCallbackInterfaces = new List<IActionsActions>();
-    private readonly InputAction m_Actions_CameraMovement;
-    private readonly InputAction m_Actions_CameraWheel;
-    public struct ActionsActions
+    // CameraMap
+    private readonly InputActionMap m_CameraMap;
+    private List<ICameraMapActions> m_CameraMapActionsCallbackInterfaces = new List<ICameraMapActions>();
+    private readonly InputAction m_CameraMap_CameraWheel;
+    private readonly InputAction m_CameraMap_CameraMovement;
+    public struct CameraMapActions
     {
         private @ALInput m_Wrapper;
-        public ActionsActions(@ALInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @CameraMovement => m_Wrapper.m_Actions_CameraMovement;
-        public InputAction @CameraWheel => m_Wrapper.m_Actions_CameraWheel;
-        public InputActionMap Get() { return m_Wrapper.m_Actions; }
+        public CameraMapActions(@ALInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CameraWheel => m_Wrapper.m_CameraMap_CameraWheel;
+        public InputAction @CameraMovement => m_Wrapper.m_CameraMap_CameraMovement;
+        public InputActionMap Get() { return m_Wrapper.m_CameraMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ActionsActions set) { return set.Get(); }
-        public void AddCallbacks(IActionsActions instance)
+        public static implicit operator InputActionMap(CameraMapActions set) { return set.Get(); }
+        public void AddCallbacks(ICameraMapActions instance)
         {
-            if (instance == null || m_Wrapper.m_ActionsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_ActionsActionsCallbackInterfaces.Add(instance);
-            @CameraMovement.started += instance.OnCameraMovement;
-            @CameraMovement.performed += instance.OnCameraMovement;
-            @CameraMovement.canceled += instance.OnCameraMovement;
+            if (instance == null || m_Wrapper.m_CameraMapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CameraMapActionsCallbackInterfaces.Add(instance);
             @CameraWheel.started += instance.OnCameraWheel;
             @CameraWheel.performed += instance.OnCameraWheel;
             @CameraWheel.canceled += instance.OnCameraWheel;
+            @CameraMovement.started += instance.OnCameraMovement;
+            @CameraMovement.performed += instance.OnCameraMovement;
+            @CameraMovement.canceled += instance.OnCameraMovement;
         }
 
-        private void UnregisterCallbacks(IActionsActions instance)
+        private void UnregisterCallbacks(ICameraMapActions instance)
         {
-            @CameraMovement.started -= instance.OnCameraMovement;
-            @CameraMovement.performed -= instance.OnCameraMovement;
-            @CameraMovement.canceled -= instance.OnCameraMovement;
             @CameraWheel.started -= instance.OnCameraWheel;
             @CameraWheel.performed -= instance.OnCameraWheel;
             @CameraWheel.canceled -= instance.OnCameraWheel;
+            @CameraMovement.started -= instance.OnCameraMovement;
+            @CameraMovement.performed -= instance.OnCameraMovement;
+            @CameraMovement.canceled -= instance.OnCameraMovement;
         }
 
-        public void RemoveCallbacks(IActionsActions instance)
+        public void RemoveCallbacks(ICameraMapActions instance)
         {
-            if (m_Wrapper.m_ActionsActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_CameraMapActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IActionsActions instance)
+        public void SetCallbacks(ICameraMapActions instance)
         {
-            foreach (var item in m_Wrapper.m_ActionsActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_CameraMapActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_ActionsActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_CameraMapActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public ActionsActions @Actions => new ActionsActions(this);
+    public CameraMapActions @CameraMap => new CameraMapActions(this);
+
+    // FurnitureInteractionMap
+    private readonly InputActionMap m_FurnitureInteractionMap;
+    private List<IFurnitureInteractionMapActions> m_FurnitureInteractionMapActionsCallbackInterfaces = new List<IFurnitureInteractionMapActions>();
+    private readonly InputAction m_FurnitureInteractionMap_MoveFurniture;
+    public struct FurnitureInteractionMapActions
+    {
+        private @ALInput m_Wrapper;
+        public FurnitureInteractionMapActions(@ALInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MoveFurniture => m_Wrapper.m_FurnitureInteractionMap_MoveFurniture;
+        public InputActionMap Get() { return m_Wrapper.m_FurnitureInteractionMap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FurnitureInteractionMapActions set) { return set.Get(); }
+        public void AddCallbacks(IFurnitureInteractionMapActions instance)
+        {
+            if (instance == null || m_Wrapper.m_FurnitureInteractionMapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FurnitureInteractionMapActionsCallbackInterfaces.Add(instance);
+            @MoveFurniture.started += instance.OnMoveFurniture;
+            @MoveFurniture.performed += instance.OnMoveFurniture;
+            @MoveFurniture.canceled += instance.OnMoveFurniture;
+        }
+
+        private void UnregisterCallbacks(IFurnitureInteractionMapActions instance)
+        {
+            @MoveFurniture.started -= instance.OnMoveFurniture;
+            @MoveFurniture.performed -= instance.OnMoveFurniture;
+            @MoveFurniture.canceled -= instance.OnMoveFurniture;
+        }
+
+        public void RemoveCallbacks(IFurnitureInteractionMapActions instance)
+        {
+            if (m_Wrapper.m_FurnitureInteractionMapActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IFurnitureInteractionMapActions instance)
+        {
+            foreach (var item in m_Wrapper.m_FurnitureInteractionMapActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_FurnitureInteractionMapActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public FurnitureInteractionMapActions @FurnitureInteractionMap => new FurnitureInteractionMapActions(this);
     private int m_ALControlSchemeSchemeIndex = -1;
     public InputControlScheme ALControlSchemeScheme
     {
@@ -259,9 +336,13 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_ALControlSchemeSchemeIndex];
         }
     }
-    public interface IActionsActions
+    public interface ICameraMapActions
     {
-        void OnCameraMovement(InputAction.CallbackContext context);
         void OnCameraWheel(InputAction.CallbackContext context);
+        void OnCameraMovement(InputAction.CallbackContext context);
+    }
+    public interface IFurnitureInteractionMapActions
+    {
+        void OnMoveFurniture(InputAction.CallbackContext context);
     }
 }

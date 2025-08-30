@@ -1,5 +1,6 @@
 ﻿using Zenject;
-using ALP.Input;
+using ALP.InputCode;
+using ALP.InputCode.CameraInput;
 
 namespace ALP.GameSceneInstallers
 {
@@ -7,8 +8,13 @@ namespace ALP.GameSceneInstallers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<InputSystem>()
+            ALInput mainInputMap = new ALInput();
+
+            Container.BindInstance(mainInputMap)
                 .AsSingle();
+
+            Container.Bind<ICameraInputService>()
+                .To<CameraInputService>().AsSingle();
         }
     }
 }
