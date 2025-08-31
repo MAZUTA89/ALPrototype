@@ -12,7 +12,7 @@ namespace ALP.ALGridManagement
     public class GameGrid : IGameGrid
     {
         #region InterfaceVariables
-        public GridLayout GameGridLayout => _gameSceneGrid;
+        public Grid GameGridLayout => _grid;
 
         public Dictionary<Vector3Int, GameObject> ObstaclesObjects => _obstaclesObjects;
 
@@ -26,6 +26,7 @@ namespace ALP.ALGridManagement
         #endregion
 
         GridLayout _gameSceneGrid;
+        Grid _grid;
 
         private Dictionary<Vector3Int, GameObject> _obstaclesObjects;
         private Dictionary<Vector3Int, GameObject> _boundsObjects;
@@ -33,9 +34,9 @@ namespace ALP.ALGridManagement
         private List<Vector3Int> _boundsPositions;
         private List<Vector3Int> _exitPositions;
 
-        public GameGrid(GridLayout gameGrid)
+        public GameGrid(Grid gameGrid)
         {
-            _gameSceneGrid = gameGrid;
+            _grid = gameGrid;
             _obstaclesObjects = new Dictionary<Vector3Int, GameObject>();
             _boundsObjects = new Dictionary<Vector3Int, GameObject>();
         }
@@ -72,6 +73,13 @@ namespace ALP.ALGridManagement
         public bool IsExitArea(Vector3Int position)
         {
             return _exitPositions.Contains(position);
+        }
+
+        public Vector3 SnapToGridCellCenter(Vector3 worldPosition)
+        {
+            Vector3Int cellPos = _grid.WorldToCell(worldPosition);
+            Vector3 cellCenter = _grid.GetCellCenterWorld(cellPos);
+            return cellCenter;
         }
     }
 }

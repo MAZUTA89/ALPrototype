@@ -10,7 +10,7 @@ namespace ALP.ALGridManagement
 {
     public interface IGameGrid
     {
-        GridLayout GameGridLayout { get; }
+        Grid GameGridLayout { get; }
         Dictionary<Vector3Int, GameObject> ObstaclesObjects { get; }
         IEnumerable<Vector3Int> InteractableArea { get; }
         IEnumerable<Vector3Int> BoundsArea { get; }
@@ -19,5 +19,6 @@ namespace ALP.ALGridManagement
         bool IsInteractableArea(Vector3Int position);
         bool IsExitArea(Vector3Int position);
         void Initialize(IPlacementData placementData);
+        Vector3 SnapToGridCellCenter(Vector3 worldPosition);
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 using Zenject;
 using ALP.Interactables;
 using ALP.InputCode.MouseInput;
-using TMPro;
 
 namespace ALP.CursorRay
 {
@@ -48,6 +47,9 @@ namespace ALP.CursorRay
 
         private void OnStartDrag(InputAction.CallbackContext context)
         {
+            if (_furnitureInput.IsDragging)
+                return;
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
@@ -65,6 +67,17 @@ namespace ALP.CursorRay
         private void OnEndDrag(InputAction.CallbackContext context)
         {
             _currentDragObject?.OnMouseStopDrag();
+        }
+
+        public Vector3 GetMouseWorldPosition()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                Debug.Log(hitInfo.collider.gameObject.name);
+                return hitInfo.point;
+            }
+            else return Vector3.zero;
         }
     }
 }

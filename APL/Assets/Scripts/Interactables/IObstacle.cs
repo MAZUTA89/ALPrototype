@@ -6,6 +6,7 @@ namespace ALP.Interactables
 {
     public interface IObstacle
     {
-        Vector3Int Position { get; }
+        Vector3Int GridPosition { get; }
+        Vector3 WorldPosition { get; }
     }
 }

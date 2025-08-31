@@ -52,7 +52,6 @@ public class BuildingSystem : MonoBehaviour
     {
         Vector3Int cellPos = gridLayout.WorldToCell(position);
         position = grid.GetCellCenterWorld(cellPos);
-        //Debug.Log("snap pos:" + position);
         return position;
     }
 

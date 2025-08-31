@@ -8,6 +8,7 @@ using ALP.SceneGeneration.LevelData;
 using ALP.ALGridManagement;
 using Cinemachine;
 using ALP.CameraCode;
+using AL.ALGridManagement;
 
 namespace ALP.Scripts.GameSceneInstallers
 {
@@ -21,11 +22,14 @@ namespace ALP.Scripts.GameSceneInstallers
         ILevelGenerator _levelGenerator;
         public override void InstallBindings()
         {
-            _gameGrid = new GameGrid(_gameGridComponent);
+            Grid grid = _gameGridComponent.GetComponent<Grid>();
 
+            _gameGrid = new GameGrid(grid);
 
-            _levelGenerator = new ALSceneGenerator(_gameGrid, Container, _gameCameraObject);
+            _levelGenerator = new ALSceneGenerator(_gameGrid,
+                Container, _gameCameraObject);
 
+            Container.Bind<GridSystem>().AsSingle();
             Container.BindInstance(_gameGrid).AsSingle();
             Container.BindInstance(_levelGenerator).AsSingle();
             Container.BindInstance(_gameCameraObject).AsSingle();
@@ -33,6 +37,8 @@ namespace ALP.Scripts.GameSceneInstallers
 
         public override void Start()
         {
+            base.Start();
+
             _levelGenerator.GenerateLevel(_levelSO);
         }
     }
