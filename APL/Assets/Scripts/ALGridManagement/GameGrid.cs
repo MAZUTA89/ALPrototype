@@ -1,4 +1,5 @@
-﻿using ALP.SceneGeneration.LevelData;
+﻿using ALP.Interactables;
+using ALP.SceneGeneration.LevelData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace ALP.ALGridManagement
         public IEnumerable<Vector3Int> BoundsArea => _boundsPositions;
 
         public IEnumerable<Vector3Int> ExitArea => _exitPositions;
+
+        public IEnumerable<IObstacle> Obstacles => _obstacles;
         #endregion
 
         GridLayout _gameSceneGrid;
@@ -33,12 +36,14 @@ namespace ALP.ALGridManagement
         private List<Vector3Int> _interactablePositions;
         private List<Vector3Int> _boundsPositions;
         private List<Vector3Int> _exitPositions;
+        private List<IObstacle> _obstacles; 
 
         public GameGrid(Grid gameGrid)
         {
             _grid = gameGrid;
             _obstaclesObjects = new Dictionary<Vector3Int, GameObject>();
             _boundsObjects = new Dictionary<Vector3Int, GameObject>();
+            _obstacles = new List<IObstacle>();
         }
 
         public void Initialize(IPlacementData placementData)
@@ -46,13 +51,20 @@ namespace ALP.ALGridManagement
             
             ITileMapData obstacleData = placementData.ObstaclesMapData;
 
-            foreach (var cell in obstacleData)
+            foreach (PrefabCell cell in obstacleData)
             {
                 if (_obstaclesObjects.TryAdd(cell.GridPosition,
                     cell.Object) == false)
                 {
                     Debug.LogError($"Не удается добавить данные препятствия уровня на" +
                     $" {cell.GridPosition} в объекте {cell.Object.name}");
+                }
+                else
+                {
+                    if (cell.Object.TryGetComponent(out IObstacle obstacle))
+                    {
+                        _obstacles.Add(obstacle);
+                    }
                 }
             }
 
@@ -64,22 +76,6 @@ namespace ALP.ALGridManagement
 
             _exitPositions = new List<Vector3Int>(exitData.ObjectsGridPositions);
 
-        }
-
-        public bool IsInteractableArea(Vector3Int position)
-        {
-            return _interactablePositions.Contains(position);
-        }
-        public bool IsExitArea(Vector3Int position)
-        {
-            return _exitPositions.Contains(position);
-        }
-
-        public Vector3 SnapToGridCellCenter(Vector3 worldPosition)
-        {
-            Vector3Int cellPos = _grid.WorldToCell(worldPosition);
-            Vector3 cellCenter = _grid.GetCellCenterWorld(cellPos);
-            return cellCenter;
         }
     }
 }

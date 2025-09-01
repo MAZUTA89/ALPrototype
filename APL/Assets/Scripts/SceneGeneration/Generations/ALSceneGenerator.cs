@@ -40,6 +40,8 @@ namespace ALP.SceneGeneration.Generations
 
                 _cameraObject.Initialize(prefabData.Camera);
 
+                _gameGrid.Initialize(prefabData);
+
                 OnSceneGenerated?.Invoke();
             }
             else

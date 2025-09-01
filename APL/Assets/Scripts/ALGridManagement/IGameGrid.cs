@@ -1,5 +1,7 @@
-﻿using ALP.SceneGeneration.LevelData;
+﻿using ALP.Interactables;
+using ALP.SceneGeneration.LevelData;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,13 +14,11 @@ namespace ALP.ALGridManagement
     {
         Grid GameGridLayout { get; }
         Dictionary<Vector3Int, GameObject> ObstaclesObjects { get; }
+        IEnumerable<IObstacle> Obstacles { get; }
         IEnumerable<Vector3Int> InteractableArea { get; }
         IEnumerable<Vector3Int> BoundsArea { get; }
         IEnumerable<Vector3Int> ExitArea { get; }
         Dictionary<Vector3Int, GameObject> BoundsObjects { get; }
-        bool IsInteractableArea(Vector3Int position);
-        bool IsExitArea(Vector3Int position);
         void Initialize(IPlacementData placementData);
-        Vector3 SnapToGridCellCenter(Vector3 worldPosition);
     }
 }

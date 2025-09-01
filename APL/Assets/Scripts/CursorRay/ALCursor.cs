@@ -67,6 +67,7 @@ namespace ALP.CursorRay
         private void OnEndDrag(InputAction.CallbackContext context)
         {
             _currentDragObject?.OnMouseStopDrag();
+            _currentDragObject = null;
         }
 
         public Vector3 GetMouseWorldPosition()

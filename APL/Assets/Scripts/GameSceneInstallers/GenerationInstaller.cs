@@ -38,7 +38,7 @@ namespace ALP.Scripts.GameSceneInstallers
         public override void Start()
         {
             base.Start();
-
+            
             _levelGenerator.GenerateLevel(_levelSO);
         }
     }
