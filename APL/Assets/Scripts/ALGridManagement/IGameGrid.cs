@@ -19,6 +19,9 @@ namespace ALP.ALGridManagement
         IEnumerable<Vector3Int> BoundsArea { get; }
         IEnumerable<Vector3Int> ExitArea { get; }
         Dictionary<Vector3Int, GameObject> BoundsObjects { get; }
+
+        void AddObstacle(IObstacle obstacle);
+        void RemoveObstacle(IObstacle obstacle);    
         void Initialize(IPlacementData placementData);
     }
 }

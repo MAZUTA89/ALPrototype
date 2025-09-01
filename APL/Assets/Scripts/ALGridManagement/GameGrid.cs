@@ -49,25 +49,6 @@ namespace ALP.ALGridManagement
         public void Initialize(IPlacementData placementData)
         {
             
-            ITileMapData obstacleData = placementData.ObstaclesMapData;
-
-            foreach (PrefabCell cell in obstacleData)
-            {
-                if (_obstaclesObjects.TryAdd(cell.GridPosition,
-                    cell.Object) == false)
-                {
-                    Debug.LogError($"Не удается добавить данные препятствия уровня на" +
-                    $" {cell.GridPosition} в объекте {cell.Object.name}");
-                }
-                else
-                {
-                    if (cell.Object.TryGetComponent(out IObstacle obstacle))
-                    {
-                        _obstacles.Add(obstacle);
-                    }
-                }
-            }
-
             ITileMapData interactableData = placementData.InteractableAreaData;
 
             _interactablePositions = new List<Vector3Int>(interactableData.ObjectsGridPositions);
@@ -76,6 +57,16 @@ namespace ALP.ALGridManagement
 
             _exitPositions = new List<Vector3Int>(exitData.ObjectsGridPositions);
 
+        }
+
+        public void AddObstacle(IObstacle obstacle)
+        {
+            _obstacles.Add(obstacle);
+        }
+
+        public void RemoveObstacle(IObstacle obstacle)
+        {
+            _obstacles.Remove(obstacle);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ALP.ALGridManagement;
 using ALP.CameraCode;
 using ALP.GameData.GameLevelData;
+using ALP.Interactables;
 using ALP.SceneGeneration.LevelData;
 using Cinemachine;
 using System;
@@ -70,8 +71,13 @@ namespace ALP.SceneGeneration.Generations
                 Vector3 prefabPos = obj.transform.position;
                 Quaternion rotation = obj.transform.rotation;
 
-                _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
+                GameObject instantObj = _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
                     _gameGrid.GameGridLayout.transform);
+
+                if(instantObj.TryGetComponent(out IObstacle obstacle))
+                {
+                    _gameGrid.AddObstacle(obstacle);
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using AL.ALGridManagement;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using Zenject;
 
@@ -24,6 +25,8 @@ namespace ALP.Interactables
 
         Vector3 _startDragPosition;
         Vector3 _currentDragPosition;
+        
+        Vector3 _direction;
 
         [Inject]
         public void Construct(GridSystem gridSystem)
@@ -35,6 +38,11 @@ namespace ALP.Interactables
         {
             UpdateGridPosition();
         }
+
+        //private void OnDrawGizmos()
+        //{
+        //    Gizmos.DrawLine(_startDragPosition, _direction);
+        //}
 
         public void OnMouseClick()
         {
@@ -71,7 +79,32 @@ namespace ALP.Interactables
 
         public void OnDrag()
         {
-           
+            Vector3 mousePosition = _gridSystem.GetMousePositionAtGrid();
+
+            //_direction = _gridSystem.GetMouseDirectionFromPosition(mousePosition, WorldPosition);
+
+            //_direction = _gridSystem.GetNearestDirection(_direction);
+
+            Vector3 targetPosition = _gridSystem.GetTargetPositionFromDirection(_currentDragPosition);
+
+            Vector3 cellPosition = _gridSystem.SnapPositionToCell(targetPosition);
+
+            transform.position = cellPosition;
+
+            //Vector3[] directions =
+            //{
+            //    new Vector3(0, 0, 1),//up
+            //    new Vector3(0, 0, -1),//down
+            //    Vector3.left,
+            //    Vector3.right
+            //};
+
+            //Debug.DrawRay(WorldPosition, directions[0], Color.red);
+            //Debug.DrawRay(WorldPosition, directions[1], Color.green);
+            //Debug.DrawRay(WorldPosition, directions[2], Color.blue);
+            //Debug.DrawRay(WorldPosition, directions[3], Color.magenta);
+            //Debug.DrawRay(WorldPosition, _direction, Color.gray);
+            //Debug.Log(_direction);
         }
 
         void UpdateGridPosition()
