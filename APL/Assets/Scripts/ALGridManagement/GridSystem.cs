@@ -15,10 +15,23 @@ namespace AL.ALGridManagement
     {
         IGameGrid _gameGrid;
         ALCursor _cursor;
+        public Dictionary<CardinalDirection, Vector3> Directions;
+        public Dictionary<CardinalDirection, Vector3> DirectionsInt;
         public GridSystem(IGameGrid gameGrid, ALCursor aLCursor)
         {
             _gameGrid = gameGrid;
             _cursor = aLCursor;
+            Directions = new Dictionary<CardinalDirection, Vector3>();
+            DirectionsInt = new Dictionary<CardinalDirection, Vector3>();
+
+            Directions[CardinalDirection.Up] = new Vector3(0, 0, 1);
+            Directions[CardinalDirection.Down] = new Vector3(0, 0, -1);
+            Directions[CardinalDirection.Left] = Vector3.left;
+            Directions[CardinalDirection.Right] = Vector3.right;
+            DirectionsInt[CardinalDirection.Up] = Vector3Int.up;
+            DirectionsInt[CardinalDirection.Down] = Vector3Int.down;
+            DirectionsInt[CardinalDirection.Left] = Vector3Int.left;
+            DirectionsInt[CardinalDirection.Right] = Vector3Int.right;
         }
         /// <summary>
         /// Текущее положение мыши игрока на сетке
@@ -92,13 +105,7 @@ namespace AL.ALGridManagement
 
             Vector3 direction = GetMouseDirectionFromPosition(mousePosition, objectPosition);
 
-            Vector3[] directions =
-           {
-                new Vector3(0, 0, 1),//up
-                new Vector3(0, 0, -1),//down
-                Vector3.left,
-                Vector3.right
-            };
+            Vector3[] directions = Directions.Values.ToArray();
 
             float maxDot = -1;
             int nearestVector = -1;
@@ -143,6 +150,8 @@ namespace AL.ALGridManagement
         public Vector3 GetTargetPositionFromDirection(Vector3 currentPosition)
         {
             Vector3 targetDirection = GetNearestDirection(currentPosition);
+
+
             Vector3 targetPosition = targetDirection + currentPosition;
 
             targetPosition = SnapPositionToCell(targetPosition);
@@ -150,5 +159,13 @@ namespace AL.ALGridManagement
             return targetPosition;
         }
 
+    }
+
+    public enum CardinalDirection
+    {
+        Up,
+        Down,
+        Left,
+        Right
     }
 }

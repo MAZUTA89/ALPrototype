@@ -75,7 +75,7 @@ namespace ALP.CursorRay
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                Debug.Log(hitInfo.collider.gameObject.name);
+                //Debug.Log(hitInfo.collider.gameObject.name);
                 return hitInfo.point;
             }
             else return Vector3.zero;

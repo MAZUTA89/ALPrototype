@@ -9,7 +9,7 @@ namespace ALP.Interactables
     {
         public Vector3Int GridPosition { get; private set; }
         
-        public Vector3 WorldPosition
+        public Vector3 Position
         {
             get
             {
@@ -60,56 +60,45 @@ namespace ALP.Interactables
 
         public void OnMouseStopDrag()
         {
+            Vector3 targetPosition = _gridSystem.GetTargetPositionFromDirection(Position);
             Vector3 mousePosition = _gridSystem.GetMousePositionAtGrid();
-
-            Vector3 atGridPosition = _gridSystem.SnapPositionToCell(mousePosition);
 
             UpdateGridPosition();
 
-            if(_gridSystem.IsCanPlace(mousePosition, atGridPosition) == false)
+            if (_gridSystem.IsCanPlace(mousePosition, targetPosition) == false)
             {
-                WorldPosition = _startDragPosition;
+                Position = _startDragPosition;
                 return;
             }
 
-            _currentDragPosition = new Vector3(atGridPosition.x, _startDragPosition.y, atGridPosition.z);
+            _currentDragPosition = new Vector3(targetPosition.x, _startDragPosition.y, targetPosition.z);
 
             transform.position = _currentDragPosition;
         }
 
         public void OnDrag()
         {
-            Vector3 mousePosition = _gridSystem.GetMousePositionAtGrid();
+            _direction = _gridSystem.GetNearestDirection(Position);
 
-            //_direction = _gridSystem.GetMouseDirectionFromPosition(mousePosition, WorldPosition);
+            Vector3[] directions =
+            {
+                new Vector3(0, 0, 1),//up
+                new Vector3(0, 0, -1),//down
+                Vector3.left,
+                Vector3.right
+            };
 
-            //_direction = _gridSystem.GetNearestDirection(_direction);
-
-            Vector3 targetPosition = _gridSystem.GetTargetPositionFromDirection(_currentDragPosition);
-
-            Vector3 cellPosition = _gridSystem.SnapPositionToCell(targetPosition);
-
-            transform.position = cellPosition;
-
-            //Vector3[] directions =
-            //{
-            //    new Vector3(0, 0, 1),//up
-            //    new Vector3(0, 0, -1),//down
-            //    Vector3.left,
-            //    Vector3.right
-            //};
-
-            //Debug.DrawRay(WorldPosition, directions[0], Color.red);
-            //Debug.DrawRay(WorldPosition, directions[1], Color.green);
-            //Debug.DrawRay(WorldPosition, directions[2], Color.blue);
-            //Debug.DrawRay(WorldPosition, directions[3], Color.magenta);
-            //Debug.DrawRay(WorldPosition, _direction, Color.gray);
-            //Debug.Log(_direction);
+            Debug.DrawRay(Position, directions[0], Color.red);
+            Debug.DrawRay(Position, directions[1], Color.green);
+            Debug.DrawRay(Position, directions[2], Color.blue);
+            Debug.DrawRay(Position, directions[3], Color.magenta);
+            Debug.DrawRay(Position, _direction, Color.gray);
+            Debug.Log(_direction);
         }
 
         void UpdateGridPosition()
         {
-            GridPosition = _gridSystem.SnapPositionToCellInt(WorldPosition);
+            GridPosition = _gridSystem.SnapPositionToCellInt(Position);
         }
 
         
