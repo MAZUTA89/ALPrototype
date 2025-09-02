@@ -8,5 +8,7 @@ namespace ALP.Interactables
     {
         Vector3Int GridPosition { get; }
         Vector3 Position { get; }
+
+        ObstacleSize ObstacleSize { get; }
     }
 }

@@ -58,28 +58,76 @@ namespace AL.ALGridManagement
             return cellPos;
         }
 
-        public bool IsPositionEmpty(Vector3 position)
+        public bool IsPositionEmpty(Vector3 targetPosition, IObstacle obstacleToMove)
         {
-            Vector3Int positionInt = SnapPositionToCellInt(position);
+            Vector3Int positionInt = SnapPositionToCellInt(targetPosition);
 
+            Vector2Int[] toMovePositions = obstacleToMove.ObstacleSize.GetGridPositions(positionInt);
+
+            ///Перебираем все препятствия
             foreach (IObstacle obstacle in _gameGrid.Obstacles)
             {
-                if (obstacle.GridPosition.x == positionInt.x &&
-                    obstacle.GridPosition.y == positionInt.y)
-                    return false;
+                ObstacleSize size = obstacle.ObstacleSize;
+
+                Vector2Int[] obstaclePositions = size.GetGridPositions(obstacle.GridPosition);
+
+                ///Перебираем все позиции занятые препятствиями
+                foreach (Vector2Int obstaclePos in obstaclePositions)
+                {
+                    ///Если желаемая позиция пересекается с препятствием то занято
+                    foreach (Vector2Int toMovePos in toMovePositions)
+                    {
+                        if (obstaclePos == toMovePos)
+                            return false;
+                    }
+                }
             }
 
             return true;
         }
 
-        public bool IsCanPlace(Vector3 mousePos, Vector3 cellPos)
+        public bool IsCanPlace(Vector3 mousePos, Vector3 cellPos, IObstacle toMove)
         {
-            if(IsPositionEmpty(cellPos) == false)
+            //if (IsInInteractableArea(toMove, cellPos) == false)
+            //    return false;
+            if(IsPositionEmpty(cellPos, toMove) == false)
                 return false;
             if (mousePos == Vector3.zero)
                 return false;
 
             return true;
+        }
+        /// <summary>
+        /// Проверяем, вмещается ли перемещаемый объект
+        /// в сетку
+        /// </summary>
+        /// <param name="obstacleToMove">Перемещаемый объект</param>
+        /// <param name="targetPosition">Желаемая позиция</param>
+        /// <returns></returns>
+        public bool IsInInteractableArea(IObstacle obstacleToMove, Vector3 targetPosition)
+        {
+            Vector3Int targetPositionInt = SnapPositionToCellInt(targetPosition);
+
+            Vector2Int[] obstaclePositions = obstacleToMove.ObstacleSize.GetGridPositions(targetPositionInt);
+
+            int interactableCounter = 0;
+
+            foreach (Vector2Int obstaclePos in obstaclePositions)
+            {
+                foreach (Vector3Int interactablePos in _gameGrid.InteractableArea)
+                {
+                    if(obstaclePos.x == interactablePos.x &&
+                        obstaclePos.y == interactablePos.y)
+                    {
+                        interactableCounter++;
+                        ///если все позиции перемещаемого объекта находятся на секте, то все ок
+                        if(interactableCounter == obstaclePositions.Length)
+                            return true;
+                    }
+                }
+            }
+
+            return false;
         }
         /// <summary>
         /// Получить направление мыши от передаваемой позиции

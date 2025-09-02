@@ -7,12 +7,52 @@ namespace ALP.Interactables
     public class ObstacleSize
     {
         public SizeType SizeType { get; private set; }
-        public Vector2 Size { get; private set; }
-        protected Vector3 CenterPosition { get; private set; }
-        public ObstacleSize(Vector2 size, SizeType sizeType, IObstacle obstacle)
+        public Vector2 GridPositions { get; private set; }
+        
+        public ObstacleSize(SizeType sizeType)
         {
-            Size = size;
             SizeType = sizeType;
+        }
+
+        public Vector2Int[] GetGridPositions(Vector3Int currentGridPosition)
+        {
+            Vector2Int current2dPos = new Vector2Int(currentGridPosition.x, currentGridPosition.y);
+            switch (SizeType)
+            {
+                case SizeType.Horizontal2:
+                    {
+                        return new Vector2Int[]
+                        {
+                            current2dPos, current2dPos + Vector2Int.up
+                        };
+                    }
+                case SizeType.Vertical2:
+                    {
+                        return new Vector2Int[]
+                        {
+                            current2dPos, current2dPos + Vector2Int.up
+                        };
+                    }
+                case SizeType.Single:
+                    {
+                        return new Vector2Int[]
+                        {
+                            current2dPos
+                        };
+                    }
+                case SizeType.Square2x2:
+                    {
+                        return new Vector2Int[]
+                        {
+                            current2dPos,
+                            current2dPos + Vector2Int.up,
+                            current2dPos + Vector2Int.right,
+                            current2dPos + Vector2Int.up + Vector2Int.right
+                        };
+                    }
+            }
+
+            return default;
         }
     }
 
@@ -22,6 +62,5 @@ namespace ALP.Interactables
         Horizontal2,
         Vertical2,
         Square2x2,
-        LShape
     }
 }

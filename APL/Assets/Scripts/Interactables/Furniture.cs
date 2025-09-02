@@ -7,6 +7,7 @@ namespace ALP.Interactables
 {
     public class Furniture : MonoBehaviour, IFurniture
     {
+        [SerializeField] private SizeType _sizeType;
         public Vector3Int GridPosition { get; private set; }
         
         public Vector3 Position
@@ -20,6 +21,8 @@ namespace ALP.Interactables
                 transform.position = value;
             }
         }
+
+        public ObstacleSize ObstacleSize { get; private set; }
 
         GridSystem _gridSystem;
 
@@ -36,6 +39,7 @@ namespace ALP.Interactables
 
         private void Start()
         {
+            ObstacleSize = new ObstacleSize(_sizeType);
             UpdateGridPosition();
         }
 
@@ -65,7 +69,7 @@ namespace ALP.Interactables
 
             UpdateGridPosition();
 
-            if (_gridSystem.IsCanPlace(mousePosition, targetPosition) == false)
+            if (_gridSystem.IsCanPlace(mousePosition, targetPosition, this) == false)
             {
                 Position = _startDragPosition;
                 return;
@@ -78,6 +82,7 @@ namespace ALP.Interactables
 
         public void OnDrag()
         {
+#if UNITY_EDITOR
             _direction = _gridSystem.GetNearestDirection(Position);
 
             Vector3[] directions =
@@ -93,14 +98,13 @@ namespace ALP.Interactables
             Debug.DrawRay(Position, directions[2], Color.blue);
             Debug.DrawRay(Position, directions[3], Color.magenta);
             Debug.DrawRay(Position, _direction, Color.gray);
-            Debug.Log(_direction);
+            //Debug.Log(_direction);
+#endif
         }
 
         void UpdateGridPosition()
         {
             GridPosition = _gridSystem.SnapPositionToCellInt(Position);
         }
-
-        
     }
 }
