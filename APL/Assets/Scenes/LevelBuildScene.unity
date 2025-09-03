@@ -174,8 +174,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8127530002748015447, guid: cfdde617fa030e747b1ba85671eed07d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127530002748015447, guid: cfdde617fa030e747b1ba85671eed07d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127530002748015447, guid: cfdde617fa030e747b1ba85671eed07d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127530002748015447, guid: cfdde617fa030e747b1ba85671eed07d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127530002748015447, guid: cfdde617fa030e747b1ba85671eed07d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7958832083358467162, guid: cfdde617fa030e747b1ba85671eed07d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfdde617fa030e747b1ba85671eed07d, type: 3}
@@ -275,7 +296,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.1792453, g: 0.15265727, b: 0.08032218, a: 0.95686275}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30

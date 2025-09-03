@@ -1,6 +1,7 @@
 ﻿using AL.ALGridManagement;
 using ALP.ALGridManagement;
 using TMPro.EditorUtilities;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -49,7 +50,8 @@ namespace ALP.Interactables
         private void OnDrawGizmos()
         {
             //Gizmos.DrawLine(_startDragPosition, _direction);
-            DrawOccupiedCells();
+            if(Application.isPlaying)
+                DrawOccupiedCells();
         }
 
         public void OnMouseClick()
@@ -82,12 +84,16 @@ namespace ALP.Interactables
             _currentDragPosition = new Vector3(targetPosition.x, _startDragPosition.y, targetPosition.z);
 
             transform.position = _currentDragPosition;
+            UpdateGridPosition();
         }
 
         public void OnDrag()
         {
 #if UNITY_EDITOR
-            DrawDirection();
+            if (Application.isPlaying)
+            {
+                DrawDirection();
+            }
 #endif
 
         }
