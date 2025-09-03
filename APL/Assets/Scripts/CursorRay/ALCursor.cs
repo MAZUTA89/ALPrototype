@@ -70,15 +70,6 @@ namespace ALP.CursorRay
             _currentDragObject = null;
         }
 
-        public Vector3 GetMouseWorldPosition()
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
-            {
-                //Debug.Log(hitInfo.collider.gameObject.name);
-                return hitInfo.point;
-            }
-            else return Vector3.zero;
-        }
+        
     }
 }

@@ -41,11 +41,25 @@ namespace AL.ALGridManagement
         /// <returns></returns>
         public Vector3 GetMousePositionAtGrid()
         {
-            Vector3 mouseWorldPosition = _cursor.GetMouseWorldPosition();
+            Vector3 mouseWorldPosition = GetMouseWorldPosition();
 
             return mouseWorldPosition;
         }
 
+        public Vector3 GetMouseWorldPosition()
+        {
+            Plane plane = new Plane(Vector3.up, 0f);
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (plane.Raycast(ray, out float enter))
+            {
+                return ray.GetPoint(enter);
+            }
+            else
+                return Vector3.zero;
+
+        }
 
         public Vector3 SnapPositionToCell(Vector3 position)
         {
@@ -62,37 +76,50 @@ namespace AL.ALGridManagement
 
         public bool IsPositionEmpty(Vector3 targetPosition, IObstacle obstacleToMove)
         {
-            Vector3Int positionInt = SnapPositionToCellInt(targetPosition);
+            Vector3Int targetPositionInt = SnapPositionToCellInt(targetPosition);
 
-            Vector2Int[] toMovePositions = obstacleToMove.ObstacleSize.GetGridPositions(positionInt);
+            Vector2Int[] toMovePositions = obstacleToMove.ObstacleSize.GetGridPositions(targetPositionInt);
+
+            HashSet<Vector2Int> occupiedCellsSet = new HashSet<Vector2Int>();
 
             ///Перебираем все препятствия
             foreach (IObstacle obstacle in GameGrid.Obstacles)
             {
+                ///перемещаемый объект не учитываем
+                if (obstacle == obstacleToMove)
+                    continue;
+
                 ObstacleSize size = obstacle.ObstacleSize;
 
-                Vector2Int[] obstaclePositions = size.GetGridPositions(obstacle.GridPosition);
+                Vector2Int[] occupiedByObstacle = size.GetGridPositions(obstacle.GridPosition);
 
-                ///Перебираем все позиции занятые препятствиями
-                foreach (Vector2Int obstaclePos in obstaclePositions)
+                foreach (var occupiedCell in occupiedByObstacle)
                 {
-                    ///Если желаемая позиция пересекается с препятствием то занято
-                    foreach (Vector2Int toMovePos in toMovePositions)
-                    {
-                        if (obstaclePos == toMovePos)
-                            return false;
-                    }
+                    occupiedCellsSet.Add(occupiedCell);
                 }
+            }
+
+            ///Ищем пересечения
+            foreach (Vector2Int movePosition in toMovePositions)
+            {
+                if (occupiedCellsSet.Contains(movePosition))
+                    return false;
             }
 
             return true;
         }
-
-        public bool IsCanPlace(Vector3 mousePos, Vector3 cellPos, IObstacle toMove)
+        /// <summary>
+        /// Можно ли разместить перемещаемый объект
+        /// </summary>
+        /// <param name="mousePos"></param>
+        /// <param name="targetPos"></param>
+        /// <param name="toMove"></param>
+        /// <returns></returns>
+        public bool IsCanPlace(Vector3 mousePos, Vector3 targetPos, IObstacle toMove)
         {
-            //if (IsInInteractableArea(toMove, cellPos) == false)
-            //    return false;
-            if(IsPositionEmpty(cellPos, toMove) == false)
+            if (IsInInteractableArea(toMove, targetPos) == false)
+                return false;
+            if (IsPositionEmpty(targetPos, toMove) == false)
                 return false;
             if (mousePos == Vector3.zero)
                 return false;
