@@ -23,7 +23,7 @@ namespace ALP.Interactables
                     {
                         return new Vector2Int[]
                         {
-                            current2dPos, current2dPos + Vector2Int.up
+                            current2dPos, current2dPos + Vector2Int.right
                         };
                     }
                 case SizeType.Vertical2:

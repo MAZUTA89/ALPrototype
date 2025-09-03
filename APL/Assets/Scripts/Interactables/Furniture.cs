@@ -1,4 +1,5 @@
 ﻿using AL.ALGridManagement;
+using ALP.ALGridManagement;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using Zenject;
@@ -7,6 +8,8 @@ namespace ALP.Interactables
 {
     public class Furniture : MonoBehaviour, IFurniture
     {
+        public Vector2Int[] FieldGridPos;
+        public Vector2Int FieldGridPivotPos;
         [SerializeField] private SizeType _sizeType;
         public Vector3Int GridPosition { get; private set; }
         
@@ -43,10 +46,11 @@ namespace ALP.Interactables
             UpdateGridPosition();
         }
 
-        //private void OnDrawGizmos()
-        //{
-        //    Gizmos.DrawLine(_startDragPosition, _direction);
-        //}
+        private void OnDrawGizmos()
+        {
+            //Gizmos.DrawLine(_startDragPosition, _direction);
+            DrawOccupiedCells();
+        }
 
         public void OnMouseClick()
         {
@@ -83,6 +87,20 @@ namespace ALP.Interactables
         public void OnDrag()
         {
 #if UNITY_EDITOR
+            DrawDirection();
+#endif
+
+        }
+
+        void UpdateGridPosition()
+        {
+            GridPosition = _gridSystem.SnapPositionToCellInt(Position);
+            FieldGridPivotPos = new Vector2Int(GridPosition.x, GridPosition.y);
+            FieldGridPos = ObstacleSize.GetGridPositions(GridPosition);
+        }
+
+        void DrawDirection()
+        {
             _direction = _gridSystem.GetNearestDirection(Position);
 
             Vector3[] directions =
@@ -98,13 +116,19 @@ namespace ALP.Interactables
             Debug.DrawRay(Position, directions[2], Color.blue);
             Debug.DrawRay(Position, directions[3], Color.magenta);
             Debug.DrawRay(Position, _direction, Color.gray);
-            //Debug.Log(_direction);
-#endif
         }
 
-        void UpdateGridPosition()
+        void DrawOccupiedCells()
         {
-            GridPosition = _gridSystem.SnapPositionToCellInt(Position);
+            UpdateGridPosition();
+            Vector2Int[] occupiedCells = ObstacleSize.GetGridPositions(GridPosition);
+
+            foreach (var occupiedCell in occupiedCells)
+            {
+                Vector3 localGridPos = _gridSystem.GameGrid.GameGridLayout.GetCellCenterLocal(new Vector3Int(occupiedCell.x, occupiedCell.y, 0));
+
+                Gizmos.DrawSphere(localGridPos, 0.2f);
+            }
         }
     }
 }

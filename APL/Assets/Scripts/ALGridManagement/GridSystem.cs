@@ -13,16 +13,18 @@ namespace AL.ALGridManagement
 {
     public class GridSystem
     {
-        IGameGrid _gameGrid;
+        public IGameGrid GameGrid {  get; private set; }
         ALCursor _cursor;
         public Dictionary<CardinalDirection, Vector3> Directions;
         public Dictionary<CardinalDirection, Vector3> DirectionsInt;
+        private List<GameObject> _occupiedCellsObjects;
         public GridSystem(IGameGrid gameGrid, ALCursor aLCursor)
         {
-            _gameGrid = gameGrid;
+            GameGrid = gameGrid;
             _cursor = aLCursor;
             Directions = new Dictionary<CardinalDirection, Vector3>();
             DirectionsInt = new Dictionary<CardinalDirection, Vector3>();
+            _occupiedCellsObjects = new List<GameObject>();
 
             Directions[CardinalDirection.Up] = new Vector3(0, 0, 1);
             Directions[CardinalDirection.Down] = new Vector3(0, 0, -1);
@@ -47,13 +49,13 @@ namespace AL.ALGridManagement
 
         public Vector3 SnapPositionToCell(Vector3 position)
         {
-            Vector3Int cellPos = _gameGrid.GameGridLayout.LocalToCell(position);
+            Vector3Int cellPos = GameGrid.GameGridLayout.LocalToCell(position);
 
-            return _gameGrid.GameGridLayout.GetCellCenterLocal(cellPos);
+            return GameGrid.GameGridLayout.GetCellCenterLocal(cellPos);
         }
         public Vector3Int SnapPositionToCellInt(Vector3 position)
         {
-            Vector3Int cellPos = _gameGrid.GameGridLayout.LocalToCell(position);
+            Vector3Int cellPos = GameGrid.GameGridLayout.LocalToCell(position);
 
             return cellPos;
         }
@@ -65,7 +67,7 @@ namespace AL.ALGridManagement
             Vector2Int[] toMovePositions = obstacleToMove.ObstacleSize.GetGridPositions(positionInt);
 
             ///Перебираем все препятствия
-            foreach (IObstacle obstacle in _gameGrid.Obstacles)
+            foreach (IObstacle obstacle in GameGrid.Obstacles)
             {
                 ObstacleSize size = obstacle.ObstacleSize;
 
@@ -114,7 +116,7 @@ namespace AL.ALGridManagement
 
             foreach (Vector2Int obstaclePos in obstaclePositions)
             {
-                foreach (Vector3Int interactablePos in _gameGrid.InteractableArea)
+                foreach (Vector3Int interactablePos in GameGrid.InteractableArea)
                 {
                     if(obstaclePos.x == interactablePos.x &&
                         obstaclePos.y == interactablePos.y)
@@ -181,7 +183,7 @@ namespace AL.ALGridManagement
 
             Vector3 mouseAtCell = SnapPositionToCell(mousePosition);
 
-            foreach (Vector3Int position in _gameGrid.InteractableArea)
+            foreach (Vector3Int position in GameGrid.InteractableArea)
             {
                 if(position.x == mouseAtCell.x &&
                     position.y == mouseAtCell.y)
@@ -205,6 +207,15 @@ namespace AL.ALGridManagement
             targetPosition = SnapPositionToCell(targetPosition);
 
             return targetPosition;
+        }
+
+        public void ShowOccupiedCells()
+        {
+            foreach (IObstacle obstacle in GameGrid.Obstacles)
+            {
+                
+
+            }
         }
 
     }
