@@ -17,14 +17,14 @@ namespace ALP.Scripts.GameSceneInstallers
         [SerializeField] ALCamera _gameCameraObject;
         [SerializeField] private LevelSO _levelSO;
         [SerializeField] private GridLayout _gameGridComponent;
-        IGameGrid _gameGrid;
+        IGridContainer _gameGrid;
 
         ILevelGenerator _levelGenerator;
         public override void InstallBindings()
         {
             Grid grid = _gameGridComponent.GetComponent<Grid>();
 
-            _gameGrid = new GameGrid(grid);
+            _gameGrid = new GridContainer(grid);
 
             _levelGenerator = new ALSceneGenerator(_gameGrid,
                 Container, _gameCameraObject);

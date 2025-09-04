@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ALP.ALGridManagement
 {
-    public class GameGrid : IGameGrid
+    public class GridContainer : IGridContainer
     {
         #region InterfaceVariables
         public Grid GameGridLayout => _grid;
@@ -38,7 +38,7 @@ namespace ALP.ALGridManagement
         private List<Vector3Int> _exitPositions;
         private List<IObstacle> _obstacles; 
 
-        public GameGrid(Grid gameGrid)
+        public GridContainer(Grid gameGrid)
         {
             _grid = gameGrid;
             _obstaclesObjects = new Dictionary<Vector3Int, GameObject>();

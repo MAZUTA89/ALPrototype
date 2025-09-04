@@ -4,23 +4,20 @@ using ALP.Interactables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.Android.Types;
 using UnityEngine;
 
 namespace AL.ALGridManagement
 {
     public class GridSystem
     {
-        public IGameGrid GameGrid {  get; private set; }
+        public IGridContainer GridContainer {  get; private set; }
         ALCursor _cursor;
         public Dictionary<CardinalDirection, Vector3> Directions;
         public Dictionary<CardinalDirection, Vector3> DirectionsInt;
         private List<GameObject> _occupiedCellsObjects;
-        public GridSystem(IGameGrid gameGrid, ALCursor aLCursor)
+        public GridSystem(IGridContainer gameGrid, ALCursor aLCursor)
         {
-            GameGrid = gameGrid;
+            GridContainer = gameGrid;
             _cursor = aLCursor;
             Directions = new Dictionary<CardinalDirection, Vector3>();
             DirectionsInt = new Dictionary<CardinalDirection, Vector3>();
@@ -63,13 +60,13 @@ namespace AL.ALGridManagement
 
         public Vector3 SnapPositionToCell(Vector3 position)
         {
-            Vector3Int cellPos = GameGrid.GameGridLayout.LocalToCell(position);
+            Vector3Int cellPos = GridContainer.GameGridLayout.LocalToCell(position);
 
-            return GameGrid.GameGridLayout.GetCellCenterLocal(cellPos);
+            return GridContainer.GameGridLayout.GetCellCenterLocal(cellPos);
         }
         public Vector3Int SnapPositionToCellInt(Vector3 position)
         {
-            Vector3Int cellPos = GameGrid.GameGridLayout.LocalToCell(position);
+            Vector3Int cellPos = GridContainer.GameGridLayout.LocalToCell(position);
 
             return cellPos;
         }
@@ -83,7 +80,7 @@ namespace AL.ALGridManagement
             HashSet<Vector2Int> occupiedCellsSet = new HashSet<Vector2Int>();
 
             ///Перебираем все препятствия
-            foreach (IObstacle obstacle in GameGrid.Obstacles)
+            foreach (IObstacle obstacle in GridContainer.Obstacles)
             {
                 ///перемещаемый объект не учитываем
                 if (obstacle == obstacleToMove)
@@ -143,7 +140,7 @@ namespace AL.ALGridManagement
 
             foreach (Vector2Int obstaclePos in obstaclePositions)
             {
-                foreach (Vector3Int interactablePos in GameGrid.InteractableArea)
+                foreach (Vector3Int interactablePos in GridContainer.InteractableArea)
                 {
                     if(obstaclePos.x == interactablePos.x &&
                         obstaclePos.y == interactablePos.y)
@@ -200,25 +197,7 @@ namespace AL.ALGridManagement
 
             return directions[nearestVector];
         }
-        /// <summary>
-        /// Находится ли мышь игрока на игровой территории
-        /// </summary>
-        /// <returns></returns>
-        public bool IsMouseAtInteractableGridArea()
-        {
-            Vector3 mousePosition = GetMousePositionAtGrid();
-
-            Vector3 mouseAtCell = SnapPositionToCell(mousePosition);
-
-            foreach (Vector3Int position in GameGrid.InteractableArea)
-            {
-                if(position.x == mouseAtCell.x &&
-                    position.y == mouseAtCell.y)
-                    return true;
-            }
-
-            return false;
-        }
+       
         /// <summary>
         /// Получить новую позицию объекта исходя из направления мыши
         /// </summary>
@@ -235,16 +214,6 @@ namespace AL.ALGridManagement
 
             return targetPosition;
         }
-
-        public void ShowOccupiedCells()
-        {
-            foreach (IObstacle obstacle in GameGrid.Obstacles)
-            {
-                
-
-            }
-        }
-
     }
 
     public enum CardinalDirection

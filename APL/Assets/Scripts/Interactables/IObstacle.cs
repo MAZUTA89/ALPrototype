@@ -10,5 +10,7 @@ namespace ALP.Interactables
         Vector3 Position { get; }
 
         ObstacleSize ObstacleSize { get; }
+
+        bool IsMoving { get; }
     }
 }

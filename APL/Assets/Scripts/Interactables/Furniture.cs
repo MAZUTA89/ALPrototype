@@ -28,6 +28,8 @@ namespace ALP.Interactables
 
         public ObstacleSize ObstacleSize { get; private set; }
 
+        public bool IsMoving {  get; private set; }
+
         GridSystem _gridSystem;
 
         Vector3 _startDragPosition;
@@ -41,6 +43,7 @@ namespace ALP.Interactables
             _gridSystem = gridSystem;
         }
 
+        #region UnityMethods
         private void Start()
         {
             ObstacleSize = new ObstacleSize(_sizeType);
@@ -49,10 +52,11 @@ namespace ALP.Interactables
 
         private void OnDrawGizmos()
         {
-            //Gizmos.DrawLine(_startDragPosition, _direction);
-            if(Application.isPlaying)
+            if (Application.isPlaying)
                 DrawOccupiedCells();
         }
+        #endregion
+
 
         public void OnMouseClick()
         {
@@ -72,8 +76,6 @@ namespace ALP.Interactables
         {
             Vector3 targetPosition = _gridSystem.GetTargetPositionFromDirection(Position);
             Vector3 mousePosition = _gridSystem.GetMousePositionAtGrid();
-
-            UpdateGridPosition();
 
             if (_gridSystem.IsCanPlace(mousePosition, targetPosition, this) == false)
             {
@@ -95,7 +97,6 @@ namespace ALP.Interactables
                 DrawDirection();
             }
 #endif
-
         }
 
         void UpdateGridPosition()
@@ -131,7 +132,7 @@ namespace ALP.Interactables
 
             foreach (var occupiedCell in occupiedCells)
             {
-                Vector3 localGridPos = _gridSystem.GameGrid.GameGridLayout.GetCellCenterLocal(new Vector3Int(occupiedCell.x, occupiedCell.y, 0));
+                Vector3 localGridPos = _gridSystem.GridContainer.GameGridLayout.GetCellCenterLocal(new Vector3Int(occupiedCell.x, occupiedCell.y, 0));
 
                 Gizmos.DrawSphere(localGridPos, 0.2f);
             }

@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ALP.ALGridManagement
 {
-    public interface IGameGrid
+    public interface IGridContainer
     {
         Grid GameGridLayout { get; }
         Dictionary<Vector3Int, GameObject> ObstaclesObjects { get; }

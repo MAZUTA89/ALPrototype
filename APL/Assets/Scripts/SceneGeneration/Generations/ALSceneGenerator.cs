@@ -16,13 +16,13 @@ namespace ALP.SceneGeneration.Generations
 {
     public class ALSceneGenerator : ILevelGenerator
     {
-        IGameGrid _gameGrid;
+        IGridContainer _gameGrid;
         IInstantiator _instantiator;
         ALCamera _cameraObject;
 
         public event Action OnSceneGenerated;
 
-        public ALSceneGenerator(IGameGrid gameGrid, IInstantiator instantiator,
+        public ALSceneGenerator(IGridContainer gameGrid, IInstantiator instantiator,
             ALCamera cameraObject)
         {
             _gameGrid = gameGrid;
