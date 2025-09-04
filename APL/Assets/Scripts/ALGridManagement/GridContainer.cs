@@ -13,7 +13,7 @@ namespace ALP.ALGridManagement
     public class GridContainer : IGridContainer
     {
         #region InterfaceVariables
-        public Grid GameGridLayout => _grid;
+        public Grid Grid => _grid;
 
         public Dictionary<Vector3Int, GameObject> ObstaclesObjects => _obstaclesObjects;
 

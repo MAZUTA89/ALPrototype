@@ -60,7 +60,7 @@ namespace ALP.SceneGeneration.Generations
                 Quaternion rotation = obj.transform.rotation;
 
                 _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
-                    _gameGrid.GameGridLayout.transform);
+                    _gameGrid.Grid.transform);
             }
         }
 
@@ -72,7 +72,7 @@ namespace ALP.SceneGeneration.Generations
                 Quaternion rotation = obj.transform.rotation;
 
                 GameObject instantObj = _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
-                    _gameGrid.GameGridLayout.transform);
+                    _gameGrid.Grid.transform);
 
                 if(instantObj.TryGetComponent(out IObstacle obstacle))
                 {

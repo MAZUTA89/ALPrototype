@@ -12,7 +12,7 @@ namespace ALP.ALGridManagement
 {
     public interface IGridContainer
     {
-        Grid GameGridLayout { get; }
+        Grid Grid { get; }
         Dictionary<Vector3Int, GameObject> ObstaclesObjects { get; }
         IEnumerable<IObstacle> Obstacles { get; }
         IEnumerable<Vector3Int> InteractableArea { get; }

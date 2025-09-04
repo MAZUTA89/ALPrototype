@@ -1,5 +1,6 @@
 ﻿using AL.ALGridManagement;
 using ALP.ALGridManagement;
+using System.Collections;
 using TMPro.EditorUtilities;
 using UnityEditor;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace ALP.Interactables
         public Vector2Int[] FieldGridPos;
         public Vector2Int FieldGridPivotPos;
         [SerializeField] private SizeType _sizeType;
+        [SerializeField] private float _moveTime = 1f;
         public Vector3Int GridPosition { get; private set; }
         
         public Vector3 Position
@@ -30,11 +32,15 @@ namespace ALP.Interactables
 
         public bool IsMoving {  get; private set; }
 
+        public Vector3 StartDragPosition { get; private set; }
+
+        public bool IsDrag {  get; private set; }
+
         GridSystem _gridSystem;
 
         Vector3 _startDragPosition;
         Vector3 _currentDragPosition;
-        
+        Vector3 _targetMovePosition;
         Vector3 _direction;
 
         [Inject]
@@ -47,7 +53,11 @@ namespace ALP.Interactables
         private void Start()
         {
             ObstacleSize = new ObstacleSize(_sizeType);
-            UpdateGridPosition();
+        }
+
+        private void Update()
+        {
+            
         }
 
         private void OnDrawGizmos()
@@ -74,19 +84,21 @@ namespace ALP.Interactables
 
         public void OnMouseStopDrag()
         {
-            Vector3 targetPosition = _gridSystem.GetTargetPositionFromDirection(Position);
-            Vector3 mousePosition = _gridSystem.GetMousePositionAtGrid();
+            //Vector3 targetPosition = _gridSystem.GetTargetPositionFromDirection(Position);
+            //Vector3 mousePosition = _gridSystem.GetMousePositionAtGrid();
 
-            if (_gridSystem.IsCanPlace(mousePosition, targetPosition, this) == false)
-            {
-                Position = _startDragPosition;
-                return;
-            }
+            //if (_gridSystem.IsCanPlace(mousePosition, targetPosition, this) == false)
+            //{
+            //    Position = _startDragPosition;
+            //    return;
+            //}
 
-            _currentDragPosition = new Vector3(targetPosition.x, _startDragPosition.y, targetPosition.z);
+            //_currentDragPosition = new Vector3(targetPosition.x, _startDragPosition.y, targetPosition.z);
 
-            transform.position = _currentDragPosition;
-            UpdateGridPosition();
+            //transform.position = _currentDragPosition;
+
+            _gridSystem.MoveObstacle(this);
+
         }
 
         public void OnDrag()
@@ -99,16 +111,9 @@ namespace ALP.Interactables
 #endif
         }
 
-        void UpdateGridPosition()
-        {
-            GridPosition = _gridSystem.SnapPositionToCellInt(Position);
-            FieldGridPivotPos = new Vector2Int(GridPosition.x, GridPosition.y);
-            FieldGridPos = ObstacleSize.GetGridPositions(GridPosition);
-        }
-
         void DrawDirection()
         {
-            _direction = _gridSystem.GetNearestDirection(Position);
+            _direction = _gridSystem.Calculator.GetNearestDirection(Position);
 
             Vector3[] directions =
             {
@@ -127,15 +132,43 @@ namespace ALP.Interactables
 
         void DrawOccupiedCells()
         {
-            UpdateGridPosition();
             Vector2Int[] occupiedCells = ObstacleSize.GetGridPositions(GridPosition);
 
             foreach (var occupiedCell in occupiedCells)
             {
-                Vector3 localGridPos = _gridSystem.GridContainer.GameGridLayout.GetCellCenterLocal(new Vector3Int(occupiedCell.x, occupiedCell.y, 0));
+                Vector3 localGridPos = _gridSystem.GridContainer.Grid.GetCellCenterLocal(new Vector3Int(occupiedCell.x, occupiedCell.y, 0));
 
                 Gizmos.DrawSphere(localGridPos, 0.2f);
             }
+        }
+
+        public void MoveTo(Vector3 position)
+        {
+            IsMoving = true;
+            _targetMovePosition = position;
+
+            StartCoroutine(MoveObstacleCoroutine());
+        }
+
+        private IEnumerator MoveObstacleCoroutine()
+        {
+            Vector3 startPosition = transform.position;
+
+            float elapsedTime = 0f;
+
+            while(elapsedTime < _moveTime)
+            {
+                transform.position = Vector3.Lerp(startPosition, _targetMovePosition,
+                    elapsedTime / _moveTime);
+
+                elapsedTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            transform.position = _targetMovePosition;
+
+            IsMoving = false;
         }
     }
 }
