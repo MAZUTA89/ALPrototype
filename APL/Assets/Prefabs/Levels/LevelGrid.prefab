@@ -726,7 +726,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4133323273319692313}
   - component: {fileID: 7252017868268605592}
-  - component: {fileID: 6049076095751326527}
   - component: {fileID: 7370783416652605372}
   m_Layer: 0
   m_Name: LevelGrid
@@ -769,24 +768,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 1
---- !u!114 &6049076095751326527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5184031706359822898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3855878842c1894f9ea5d127018b494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridLayout: {fileID: 7252017868268605592}
-  MainTileMap: {fileID: 5730838577494373410}
-  whiteTile: {fileID: 0}
-  prefab1: {fileID: 7824256335761886142, guid: 884e9a3e5076690419f951033b8c4528, type: 3}
-  prefab2: {fileID: 7824256335761886142, guid: 884e9a3e5076690419f951033b8c4528, type: 3}
-  SpherePrefab: {fileID: 0}
 --- !u!114 &7370783416652605372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,6 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e840c008bd35b4899d55dfc30863d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
   _baseGrid: {fileID: 7252017868268605592}
   _obstaclesTilemap: {fileID: 0}
   _boundsTilemap: {fileID: 0}

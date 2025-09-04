@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3097374288897466721}
   - component: {fileID: 3809790376238395138}
-  - component: {fileID: 2179084444185004161}
-  - component: {fileID: 3046315563524993134}
+  - component: {fileID: 2377354125898997301}
   m_Layer: 0
   m_Name: Standart Chair
   m_TagString: Untagged
@@ -54,9 +53,9 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.0348489, z: 0.6719254}
-  m_Center: {x: 0, y: 0.62849677, z: -0.03768055}
---- !u!114 &2179084444185004161
+  m_Size: {x: 0.87872994, y: 1.0791551, z: 0.6719254}
+  m_Center: {x: -0.009627581, y: 0.7864123, z: -0.037680537}
+--- !u!114 &2377354125898997301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,21 +64,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7824256335761886142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26d05cfc1400e445bf2177343cb36e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 628f1b308762e714698cc28e8582e345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3046315563524993134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7824256335761886142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 817969d550d7a1c4e8239d0e1e778da2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  FieldGridPos: []
+  FieldGridPivotPos: {x: 0, y: 0}
+  _sizeType: 0
 --- !u!1001 &5236294628619446395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98,7 +88,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2460137346744355706, guid: f22bfcebbb016164480f1e0f1f6915b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.575
+      value: 0.738
       objectReference: {fileID: 0}
     - target: {fileID: 2460137346744355706, guid: f22bfcebbb016164480f1e0f1f6915b8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -140,8 +130,7 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7569658163349363873, guid: f22bfcebbb016164480f1e0f1f6915b8, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
