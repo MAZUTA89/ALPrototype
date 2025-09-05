@@ -20,19 +20,9 @@ namespace ALP.Interactables
             _rb = GetComponent<Rigidbody>();
             _rb.isKinematic = true;
         }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if(other.gameObject.TryGetComponent(out IFurniture furniture))
-            {
-                furniture.OnEnterLightZone();
-                furniture.OnEndMoveEvent += OnFurnitureEndMove;
-            }
-            
-        }
         #endregion
 
-        void OnFurnitureEndMove()
+        public void OnEnterObstacle()
         {
             Destroy(gameObject);
         }

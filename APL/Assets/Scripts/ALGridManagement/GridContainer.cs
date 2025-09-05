@@ -26,7 +26,9 @@ namespace ALP.ALGridManagement
         public IEnumerable<Vector3Int> ExitArea => _exitPositions;
 
         public IEnumerable<IObstacle> Obstacles => _obstacles;
-        public IEnumerable<Vector3Int> LightZoneArea => _lightZoneArea;
+        public IEnumerable<Vector2Int> LightZoneArea => _lightZoneArea;
+
+        public Dictionary<Vector2Int, LightZone> LightZones => _lightZoneObjects;
         #endregion
 
         GridLayout _gameSceneGrid;
@@ -34,11 +36,12 @@ namespace ALP.ALGridManagement
 
         private Dictionary<Vector3Int, GameObject> _obstaclesObjects;
         private Dictionary<Vector3Int, GameObject> _boundsObjects;
+        private Dictionary<Vector2Int, LightZone> _lightZoneObjects;
         private List<Vector3Int> _interactablePositions;
         private List<Vector3Int> _boundsPositions;
         private List<Vector3Int> _exitPositions;
         private List<IObstacle> _obstacles;
-        private List<Vector3Int> _lightZoneArea;
+        private List<Vector2Int> _lightZoneArea;
 
         public GridContainer(Grid gameGrid)
         {
@@ -46,12 +49,12 @@ namespace ALP.ALGridManagement
             _obstaclesObjects = new Dictionary<Vector3Int, GameObject>();
             _boundsObjects = new Dictionary<Vector3Int, GameObject>();
             _obstacles = new List<IObstacle>();
-            _lightZoneArea = new List<Vector3Int>();
+            _lightZoneArea = new List<Vector2Int>();
+            _lightZoneObjects = new Dictionary<Vector2Int, LightZone>();
         }
 
         public void Initialize(IPlacementData placementData)
         {
-            
             ITileMapData interactableData = placementData.InteractableAreaData;
 
             _interactablePositions = new List<Vector3Int>(interactableData.ObjectsGridPositions);
@@ -73,11 +76,11 @@ namespace ALP.ALGridManagement
             _obstacles.Remove(obstacle);
         }
 
-        public void AddLightZonePosition(Vector3Int position)
+        public void AddLightZonePosition(Vector2Int position)
         {
             _lightZoneArea.Add(position);
         }
-        public void RemoveLightZonePosition(Vector3Int position)
+        public void RemoveLightZonePosition(Vector2Int position)
         {
             _lightZoneArea.Remove(position);
         }

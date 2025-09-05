@@ -215,5 +215,16 @@ namespace ALP.ALGridManagement
 
             return targetPosition;
         }
+
+        public bool IsInLightZoneArea(Vector3 position, out Vector2Int cellPosition)
+        {
+            Vector3Int positionInt = SnapPositionToCellInt(position);
+
+            Vector2Int position2Int = new Vector2Int(positionInt.x, positionInt.y);
+
+            cellPosition = position2Int;
+
+            return GridContainer.LightZoneArea.Contains(position2Int);
+        }
     }
 }

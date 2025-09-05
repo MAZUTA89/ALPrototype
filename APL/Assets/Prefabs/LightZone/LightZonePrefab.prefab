@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 1980193034159316838}
   - component: {fileID: 5066061317687227565}
   - component: {fileID: 3150367708229677426}
+  - component: {fileID: 547074023106925160}
   m_Layer: 0
   m_Name: LightZonePrefab
   m_TagString: LightZone
@@ -147,8 +148,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.27028394, y: 1.5193431, z: 0.22078705}
-  m_Center: {x: 0.008256555, y: 0.7096716, z: -0.009478569}
+  m_Size: {x: 0.27028394, y: 0.8729465, z: 0.22078705}
+  m_Center: {x: 0.008256555, y: 0.3864733, z: -0.009478569}
 --- !u!114 &3150367708229677426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +162,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6191159f811e93d40bc2fdf04b6fca5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &547074023106925160
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057860601135969301}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

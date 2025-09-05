@@ -77,7 +77,12 @@ namespace ALP.SceneGeneration.Generations
 
                 if(instantObj.TryGetComponent(out LightZone lightZone))
                 {
-                    _gameGrid.AddLightZonePosition(prefabCell.GridPosition);
+                    _gameGrid.AddLightZonePosition(new Vector2Int(prefabCell.GridPosition.x,
+                        prefabCell.GridPosition.y));
+
+                    _gameGrid.LightZones.Add(
+                        new Vector2Int(prefabCell.GridPosition.x, prefabCell.GridPosition.y),
+                        lightZone);
                 }
             }
         }

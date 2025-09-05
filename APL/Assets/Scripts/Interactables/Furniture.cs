@@ -2,8 +2,6 @@
 using ALP.ALGridManagement;
 using System;
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -17,7 +15,7 @@ namespace ALP.Interactables
         [SerializeField] private SizeType _sizeType;
         [SerializeField] private float _moveTime = 0.7f;
 
-        public event Action OnEndMoveEvent;
+        public event Action<Vector3> OnEndMoveEvent;
 
         public Vector3Int GridPosition { get; private set; }
         
@@ -44,12 +42,12 @@ namespace ALP.Interactables
         GridSystem _gridSystem;
         protected Collider Collider { get; private set; }
 
+        public GameObject ObstacleObject => gameObject;
+
         Vector3 _startDragPosition;
         Vector3 _currentDragPosition;
         Vector3 _targetMovePosition;
         Vector3 _direction;
-
-        bool _isInLightZone;
 
         [Inject]
         public void Construct(GridSystem gridSystem)
@@ -66,11 +64,9 @@ namespace ALP.Interactables
         }
         private void OnEnable()
         {
-            OnEndMoveEvent += OnEndMove;
         }
         private void OnDisable()
         {
-            OnEndMoveEvent -= OnEndMove;
         }
 
         private void OnDrawGizmos()
@@ -83,12 +79,10 @@ namespace ALP.Interactables
         {
             _startDragPosition = transform.position;
         }
-
         public void OnMouseStopDrag()
         {
             _gridSystem.MoveObstacle(this);
         }
-
         public void OnDrag()
         {
 #if UNITY_EDITOR
@@ -158,18 +152,7 @@ namespace ALP.Interactables
 
             IsMoving = false;
 
-            OnEndMoveEvent?.Invoke();
-        }
-
-        public void OnEnterLightZone()
-        {
-            _isInLightZone = true;
-        }
-
-        private void OnEndMove()
-        {
-            if (_isInLightZone)
-                Destroy(gameObject);
+            OnEndMoveEvent?.Invoke(_targetMovePosition);
         }
     }
 }
