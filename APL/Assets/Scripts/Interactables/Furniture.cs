@@ -1,19 +1,24 @@
 ﻿using AL.ALGridManagement;
 using ALP.ALGridManagement;
+using System;
 using System.Collections;
-using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
 
 namespace ALP.Interactables
 {
+    [RequireComponent(typeof(Collider))]
     public class Furniture : MonoBehaviour, IFurniture
     {
         public Vector2Int[] FieldGridPos;
         public Vector2Int FieldGridPivotPos;
         [SerializeField] private SizeType _sizeType;
-        [SerializeField] private float _moveTime = 1f;
+        [SerializeField] private float _moveTime = 0.7f;
+
+        public event Action OnEndMoveEvent;
+
         public Vector3Int GridPosition { get; private set; }
         
         public Vector3 Position
@@ -37,11 +42,14 @@ namespace ALP.Interactables
         public bool IsDrag {  get; private set; }
 
         GridSystem _gridSystem;
+        protected Collider Collider { get; private set; }
 
         Vector3 _startDragPosition;
         Vector3 _currentDragPosition;
         Vector3 _targetMovePosition;
         Vector3 _direction;
+
+        bool _isInLightZone;
 
         [Inject]
         public void Construct(GridSystem gridSystem)
@@ -53,11 +61,16 @@ namespace ALP.Interactables
         private void Start()
         {
             ObstacleSize = new ObstacleSize(_sizeType);
+            Collider = GetComponent<Collider>();
+            Collider.isTrigger = false;
         }
-
-        private void Update()
+        private void OnEnable()
         {
-            
+            OnEndMoveEvent += OnEndMove;
+        }
+        private void OnDisable()
+        {
+            OnEndMoveEvent -= OnEndMove;
         }
 
         private void OnDrawGizmos()
@@ -66,39 +79,14 @@ namespace ALP.Interactables
                 DrawOccupiedCells();
         }
         #endregion
-
-
-        public void OnMouseClick()
-        {
-            Debug.Log(gameObject.name + " Clicked");
-        }
-
         public void OnMouseStartDrag()
         {
-            Debug.Log(gameObject.name + " Start drag");
-
             _startDragPosition = transform.position;
-
-            Debug.Log(_startDragPosition);
         }
 
         public void OnMouseStopDrag()
         {
-            //Vector3 targetPosition = _gridSystem.GetTargetPositionFromDirection(Position);
-            //Vector3 mousePosition = _gridSystem.GetMousePositionAtGrid();
-
-            //if (_gridSystem.IsCanPlace(mousePosition, targetPosition, this) == false)
-            //{
-            //    Position = _startDragPosition;
-            //    return;
-            //}
-
-            //_currentDragPosition = new Vector3(targetPosition.x, _startDragPosition.y, targetPosition.z);
-
-            //transform.position = _currentDragPosition;
-
             _gridSystem.MoveObstacle(this);
-
         }
 
         public void OnDrag()
@@ -169,6 +157,19 @@ namespace ALP.Interactables
             transform.position = _targetMovePosition;
 
             IsMoving = false;
+
+            OnEndMoveEvent?.Invoke();
+        }
+
+        public void OnEnterLightZone()
+        {
+            _isInLightZone = true;
+        }
+
+        private void OnEndMove()
+        {
+            if (_isInLightZone)
+                Destroy(gameObject);
         }
     }
 }

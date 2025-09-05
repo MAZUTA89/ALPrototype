@@ -11,6 +11,7 @@ namespace ALP.SceneGeneration.LevelData
         ITileMapData BoundAreaData { get; }
         ITileMapData InteractableAreaData { get; }
         ITileMapData ExitAreaData { get; }
+        ITileMapData TriggerMapData { get; }
         GridLayout BaseGrid { get; }
     }
 }

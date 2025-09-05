@@ -10,6 +10,7 @@ namespace ALP.SceneGeneration.LevelData
         [SerializeField] CinemachineVirtualCamera _camera;
         [SerializeField] GridLayout _baseGrid;
         [SerializeField] Tilemap _obstaclesTilemap;
+        [SerializeField] Tilemap _triggersTilemap;
         [SerializeField] Tilemap _boundsTilemap;
         [SerializeField] Tilemap _interactableTilemap;
         [SerializeField] Tilemap _boundsAreaTilemap;
@@ -26,6 +27,7 @@ namespace ALP.SceneGeneration.LevelData
         public ITileMapData InteractableAreaData { get; protected set; }
 
         public ITileMapData ExitAreaData { get; protected set; }
+        public ITileMapData TriggerMapData { get; protected set; }
 
         public CinemachineVirtualCamera Camera => _camera;
 
@@ -36,6 +38,7 @@ namespace ALP.SceneGeneration.LevelData
             BoundAreaData = new SpritesTilemapData(_baseGrid, _boundsAreaTilemap);
             InteractableAreaData = new SpritesTilemapData(_baseGrid, _interactableTilemap);
             ExitAreaData = new SpritesTilemapData(_baseGrid, _exitAreaTilemap);
+            TriggerMapData = new TileMapData(_baseGrid, _triggersTilemap);
         }
         protected virtual void Start()
         {

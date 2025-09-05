@@ -5,7 +5,6 @@ namespace ALP.Interactables
 {
     public interface IInteractable
     {
-        void OnMouseClick();
         void OnMouseStartDrag();
         void OnMouseStopDrag();
         void OnDrag();

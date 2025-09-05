@@ -19,9 +19,12 @@ namespace ALP.ALGridManagement
         IEnumerable<Vector3Int> BoundsArea { get; }
         IEnumerable<Vector3Int> ExitArea { get; }
         Dictionary<Vector3Int, GameObject> BoundsObjects { get; }
+        IEnumerable<Vector3Int> LightZoneArea { get; }
 
         void AddObstacle(IObstacle obstacle);
-        void RemoveObstacle(IObstacle obstacle);    
+        void RemoveObstacle(IObstacle obstacle);
+        void AddLightZonePosition(Vector3Int position);
+        void RemoveLightZonePosition(Vector3Int position);
         void Initialize(IPlacementData placementData);
     }
 }

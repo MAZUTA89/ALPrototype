@@ -134,7 +134,7 @@ public partial class @ALInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""589bcef2-52f4-420c-8b48-9e293063b7ae"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Hold(duration=0.1,pressPoint=0.5)"",
+                    ""interactions"": ""Hold(duration=0.05,pressPoint=0.5)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MoveFurniture"",

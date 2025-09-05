@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -36,7 +37,8 @@ namespace ALP.SceneGeneration.Generations
             if(levelPrefab.TryGetComponent(out PlacementPrefabData prefabData))
             {
                 prefabData.Initialize();
-                PlaceBoundObjectsAtScene(prefabData);
+                PlaceNotObstacleObjectsAtScene(prefabData.BoundsMapData.MapChildrenObjects);
+                PlaceTriggersObjectsAtScene(prefabData);
                 PlaceObstacleObjectsAtScene(prefabData);
 
                 _cameraObject.Initialize(prefabData.Camera);
@@ -52,15 +54,31 @@ namespace ALP.SceneGeneration.Generations
             }
         }
 
-        void PlaceBoundObjectsAtScene(PlacementPrefabData prefabData)
+        void PlaceNotObstacleObjectsAtScene(IEnumerable<GameObject> objects)
         {
-            foreach (GameObject obj in prefabData.BoundsMapData.MapChildrenObjects)
+            foreach (GameObject obj in objects)
             {
                 Vector3 prefabPos = obj.transform.position;
                 Quaternion rotation = obj.transform.rotation;
 
                 _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
                     _gameGrid.Grid.transform);
+            }
+        }
+
+        void PlaceTriggersObjectsAtScene(PlacementPrefabData prefabData)
+        {
+            foreach (PrefabCell prefabCell in prefabData.TriggerMapData)
+            {
+                GameObject instantObj = _instantiator.InstantiatePrefab(prefabCell.Object,
+                    prefabCell.Object.transform.position,
+                    prefabCell.Object.transform.rotation,
+                    _gameGrid.Grid.transform);
+
+                if(instantObj.TryGetComponent(out LightZone lightZone))
+                {
+                    _gameGrid.AddLightZonePosition(prefabCell.GridPosition);
+                }
             }
         }
 

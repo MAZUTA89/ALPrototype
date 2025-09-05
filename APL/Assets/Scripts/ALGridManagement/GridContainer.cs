@@ -26,6 +26,7 @@ namespace ALP.ALGridManagement
         public IEnumerable<Vector3Int> ExitArea => _exitPositions;
 
         public IEnumerable<IObstacle> Obstacles => _obstacles;
+        public IEnumerable<Vector3Int> LightZoneArea => _lightZoneArea;
         #endregion
 
         GridLayout _gameSceneGrid;
@@ -36,7 +37,8 @@ namespace ALP.ALGridManagement
         private List<Vector3Int> _interactablePositions;
         private List<Vector3Int> _boundsPositions;
         private List<Vector3Int> _exitPositions;
-        private List<IObstacle> _obstacles; 
+        private List<IObstacle> _obstacles;
+        private List<Vector3Int> _lightZoneArea;
 
         public GridContainer(Grid gameGrid)
         {
@@ -44,6 +46,7 @@ namespace ALP.ALGridManagement
             _obstaclesObjects = new Dictionary<Vector3Int, GameObject>();
             _boundsObjects = new Dictionary<Vector3Int, GameObject>();
             _obstacles = new List<IObstacle>();
+            _lightZoneArea = new List<Vector3Int>();
         }
 
         public void Initialize(IPlacementData placementData)
@@ -57,6 +60,7 @@ namespace ALP.ALGridManagement
 
             _exitPositions = new List<Vector3Int>(exitData.ObjectsGridPositions);
 
+            ITileMapData triggersData = placementData.TriggerMapData;
         }
 
         public void AddObstacle(IObstacle obstacle)
@@ -67,6 +71,15 @@ namespace ALP.ALGridManagement
         public void RemoveObstacle(IObstacle obstacle)
         {
             _obstacles.Remove(obstacle);
+        }
+
+        public void AddLightZonePosition(Vector3Int position)
+        {
+            _lightZoneArea.Add(position);
+        }
+        public void RemoveLightZonePosition(Vector3Int position)
+        {
+            _lightZoneArea.Remove(position);
         }
     }
 }
