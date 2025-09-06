@@ -18,5 +18,9 @@ namespace ALP.Interactables
         {
             
         }
+
+        public void OnPlayerEnter()
+        {
+        }
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 799716229978906798}
   - component: {fileID: 1471585487748155378}
-  - component: {fileID: 3835543508723513904}
+  - component: {fileID: 6044731177399779942}
   m_Layer: 0
   m_Name: ArmchairPrefab
   m_TagString: Untagged
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.81125546, y: 1, z: 0.89150465}
   m_Center: {x: 0.038637638, y: 0.52, z: 0.041690886}
---- !u!114 &3835543508723513904
+--- !u!114 &6044731177399779942
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,12 +64,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9185897561618657387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 628f1b308762e714698cc28e8582e345, type: 3}
+  m_Script: {fileID: 11500000, guid: 83866d0f770d8ea4db0d664ce6bf4071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FieldGridPos: []
   FieldGridPivotPos: {x: 0, y: 0}
   _sizeType: 0
+  _moveTime: 0.7
 --- !u!1001 &9063480263401151249
 PrefabInstance:
   m_ObjectHideFlags: 0

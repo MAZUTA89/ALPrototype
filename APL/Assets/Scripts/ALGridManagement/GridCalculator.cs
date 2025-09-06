@@ -254,5 +254,21 @@ namespace ALP.ALGridManagement
 
             return GridContainer.WakeupArea.Contains(position2Int);
         }
+
+        public bool IsInExitArea(Vector3 position)
+        {
+            Vector3Int positionInt = SnapPositionToCellInt(position);
+
+            Vector2Int position2Int = new Vector2Int(positionInt.x, positionInt.y);
+
+            foreach (Vector3Int exitCell in GridContainer.ExitArea)
+            {
+                if(position2Int.x == exitCell.x &&
+                    position2Int.y == exitCell.y)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

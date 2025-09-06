@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3097374288897466721}
   - component: {fileID: 3809790376238395138}
-  - component: {fileID: 2377354125898997301}
+  - component: {fileID: 7711333478052435807}
   m_Layer: 0
   m_Name: Standart Chair
   m_TagString: Untagged
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.87872994, y: 1.0791551, z: 0.6719254}
   m_Center: {x: -0.009627581, y: 0.7864123, z: -0.037680537}
---- !u!114 &2377354125898997301
+--- !u!114 &7711333478052435807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,12 +64,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7824256335761886142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 628f1b308762e714698cc28e8582e345, type: 3}
+  m_Script: {fileID: 11500000, guid: 83866d0f770d8ea4db0d664ce6bf4071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FieldGridPos: []
   FieldGridPivotPos: {x: 0, y: 0}
   _sizeType: 0
+  _moveTime: 0.7
 --- !u!1001 &5236294628619446395
 PrefabInstance:
   m_ObjectHideFlags: 0

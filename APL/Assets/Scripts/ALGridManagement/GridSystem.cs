@@ -50,13 +50,9 @@ namespace AL.ALGridManagement
                 HandleIfLightZone(movedPosition);
             else
             {
-                if(Calculator.IsInWakeupArea(_lastMovedObstacle.Position, out Vector2Int cellPosition))
-                {
-                    player.WakeUp();
-                }
-
+                HandleIfExitArea(player);
+                HandleIfWakeupArea(player);
             }
-            
             _lastMovedObstacle.OnEndMoveEvent -= OnEndMoveLastObstacle;
         }
 
@@ -78,6 +74,38 @@ namespace AL.ALGridManagement
 
                 GridContainer.RemoveObstacle(_lastMovedObstacle);
             }
+        }
+
+        private void HandleIfWakeupArea(IPlayer player)
+        {
+            if (Calculator.IsInWakeupArea(_lastMovedObstacle.Position, out Vector2Int cellPosition))
+            {
+                player.Wakeup();
+
+                IWakeupFurniture wakeupFurniture = GetWakeupFurniture(cellPosition);
+
+                if (wakeupFurniture != null)
+                    wakeupFurniture.OnPlayerEnter();
+            }
+        }
+        private void HandleIfExitArea(IPlayer player)
+        {
+            if(Calculator.IsInExitArea(_lastMovedObstacle.Position))
+            {
+                player.Exit();
+            }
+        }
+
+        private IWakeupFurniture GetWakeupFurniture(Vector2Int cellPosition)
+        {
+            foreach (KeyValuePair<IWakeupFurniture, IEnumerable<Vector2Int>> keyValue 
+                in GridContainer.WakeupObjects)
+            {
+                if(keyValue.Value.Contains(cellPosition))
+                    return keyValue.Key;
+            }
+
+            return null;
         }
     }
 

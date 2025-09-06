@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8374087666881207653}
   - component: {fileID: 3465745878672097921}
-  - component: {fileID: 8973390417811843308}
+  - component: {fileID: 5419137536534261644}
   m_Layer: 0
   m_Name: LampPrefab
   m_TagString: Untagged
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8902041, y: 1.2191706, z: 0.7539127}
   m_Center: {x: 0.026015759, y: 1.0095853, z: -0.060918897}
---- !u!114 &8973390417811843308
+--- !u!114 &5419137536534261644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,12 +64,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 97344498474138604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 628f1b308762e714698cc28e8582e345, type: 3}
+  m_Script: {fileID: 11500000, guid: 83866d0f770d8ea4db0d664ce6bf4071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FieldGridPos: []
   FieldGridPivotPos: {x: 0, y: 0}
   _sizeType: 0
+  _moveTime: 0.7
 --- !u!1 &6124280221754677928
 GameObject:
   m_ObjectHideFlags: 0
