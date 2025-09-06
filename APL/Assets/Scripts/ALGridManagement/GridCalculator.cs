@@ -156,6 +156,22 @@ namespace ALP.ALGridManagement
 
             return false;
         }
+        public bool IsInInteractableArea(Vector3 targetPosition)
+        {
+            targetPosition = GridContainer.Grid.transform.InverseTransformPoint(targetPosition);
+
+            Vector3Int targetPositionInt = SnapPositionToCellInt(targetPosition);
+
+            foreach (Vector3Int interactablePos in GridContainer.InteractableArea)
+            {
+                if (targetPositionInt.x == interactablePos.x &&
+                    targetPositionInt.y == interactablePos.y)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         /// <summary>
         /// Получить направление мыши от передаваемой позиции
         /// </summary>
@@ -211,7 +227,7 @@ namespace ALP.ALGridManagement
 
             Vector3 targetPosition = targetDirection + currentPosition;
 
-           // targetPosition = SnapPositionToCell(targetPosition);
+            // targetPosition = SnapPositionToCell(targetPosition);
 
             return targetPosition;
         }

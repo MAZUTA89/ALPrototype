@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52f0215f83efba847ae5022e1d78f810, type: 3}
   m_Name: CameraSO
   m_EditorClassIdentifier: 
-  Camera2dMovementSpeed: 4.89
+  Camera2dMovementSpeed: 159
   FOVMax: 69
   FOVMin: 14.1
   CameraUpDownSpeed: 61.1
+  BoundsOffset: 5

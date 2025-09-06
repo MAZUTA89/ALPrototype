@@ -1,4 +1,5 @@
-﻿using ALP.GameData.Camera;
+﻿using AL.ALGridManagement;
+using ALP.GameData.Camera;
 using ALP.InputCode;
 using ALP.InputCode.CameraInput;
 using Cinemachine;
@@ -15,16 +16,20 @@ namespace ALP.CameraCode
         CinemachineVirtualCamera _vcComponent;
 
         ICameraInputService _cameraInputService;
+        GridSystem _gridSystem;
 
         Vector2 _direction;
         Vector3 _targetPosition;
         CameraSO _cameraSO;
 
         [Inject]
-        public void Construct(ICameraInputService cameraInputService, CameraSO cameraSO)
+        public void Construct(ICameraInputService cameraInputService, 
+            CameraSO cameraSO,
+            GridSystem gridSystem)
         {
             _cameraInputService = cameraInputService;
             _cameraSO = cameraSO;
+            _gridSystem = gridSystem;
         }
 
         public void Initialize(CinemachineVirtualCamera vc)
@@ -48,11 +53,15 @@ namespace ALP.CameraCode
         private void Update()
         {
             UpdateMovement();
+            UpdateFOV();
         }
 
         private void LateUpdate()
         {
-            transform.position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime);
+            if (_gridSystem.Calculator.IsInInteractableArea(_targetPosition))
+            {
+                transform.position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime);
+            }
         }
         #endregion
 
@@ -60,16 +69,19 @@ namespace ALP.CameraCode
         {
             _direction = _cameraInputService.GetWASDDirection();
 
-            Vector2 movement = _direction * _cameraSO.Camera2dMovementSpeed;
+            Vector2 movement = _direction * _cameraSO.Camera2dMovementSpeed * Time.deltaTime;
 
             _targetPosition = new Vector3(transform.position.x + movement.x, transform.position.y,
                 transform.position.z + movement.y);
+        }
 
-            if(_cameraInputService.MouseWheel().y < 0)
+        void UpdateFOV()
+        {
+            if (_cameraInputService.MouseWheel().y < 0)
             {
                 _vcComponent.m_Lens.FieldOfView += Time.deltaTime * _cameraSO.CameraUpDownSpeed;
             }
-            else if(_cameraInputService.MouseWheel().y > 0)
+            else if (_cameraInputService.MouseWheel().y > 0)
             {
                 _vcComponent.m_Lens.FieldOfView -= Time.deltaTime * _cameraSO.CameraUpDownSpeed;
             }

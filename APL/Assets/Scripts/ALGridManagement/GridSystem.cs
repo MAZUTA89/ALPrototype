@@ -47,12 +47,12 @@ namespace AL.ALGridManagement
         private void OnEndMoveLastObstacle(Vector3 movedPosition)
         {
             if(_lastMovedObstacle is not IPlayer player)
-                HandleLightZone(movedPosition);
+                HandleIfLightZone(movedPosition);
             
             _lastMovedObstacle.OnEndMoveEvent -= OnEndMoveLastObstacle;
         }
 
-        private void HandleLightZone(Vector3 movedPosition)
+        private void HandleIfLightZone(Vector3 movedPosition)
         {
             if (Calculator.IsInLightZoneArea(movedPosition, out Vector2Int cellPosition))
             {
@@ -69,8 +69,6 @@ namespace AL.ALGridManagement
                 GameObject.Destroy(_lastMovedObstacle.ObstacleObject);
 
                 GridContainer.RemoveObstacle(_lastMovedObstacle);
-
-                
             }
         }
     }

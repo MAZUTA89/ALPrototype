@@ -6,7 +6,7 @@ namespace ALP.GameData.Camera
     [CreateAssetMenu(fileName = "CameraSO", menuName = "GameData/Camera/CameraSO")]
     public class CameraSO : ScriptableObject
     {
-        [Range(1, 20)]
+        [Range(1, 200)]
         public float Camera2dMovementSpeed;
         [Range(40, 80)]
         public float FOVMax;
@@ -14,5 +14,7 @@ namespace ALP.GameData.Camera
         public float FOVMin;
         [Range(1, 100)]
         public float CameraUpDownSpeed;
+        [Range(-5, 5)]
+        public float BoundsOffset;
     }
 }
