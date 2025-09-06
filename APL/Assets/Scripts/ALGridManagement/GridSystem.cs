@@ -48,6 +48,14 @@ namespace AL.ALGridManagement
         {
             if(_lastMovedObstacle is not IPlayer player)
                 HandleIfLightZone(movedPosition);
+            else
+            {
+                if(Calculator.IsInWakeupArea(_lastMovedObstacle.Position, out Vector2Int cellPosition))
+                {
+                    player.WakeUp();
+                }
+
+            }
             
             _lastMovedObstacle.OnEndMoveEvent -= OnEndMoveLastObstacle;
         }

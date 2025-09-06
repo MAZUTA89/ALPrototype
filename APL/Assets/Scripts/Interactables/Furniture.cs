@@ -75,15 +75,15 @@ namespace ALP.Interactables
                 DrawOccupiedCells();
         }
         #endregion
-        public void OnMouseStartDrag()
+        public virtual void OnMouseStartDrag()
         {
             _startDragPosition = transform.position;
         }
-        public void OnMouseStopDrag()
+        public virtual void OnMouseStopDrag()
         {
             _gridSystem.MoveObstacle(this);
         }
-        public void OnDrag()
+        public virtual void OnDrag()
         {
 #if UNITY_EDITOR
             if (Application.isPlaying)
@@ -118,7 +118,8 @@ namespace ALP.Interactables
 
             foreach (var occupiedCell in occupiedCells)
             {
-                Vector3 localGridPos = _gridSystem.GridContainer.Grid.GetCellCenterLocal(new Vector3Int(occupiedCell.x, occupiedCell.y, 0));
+                Vector3 localGridPos = _gridSystem.GridContainer.Grid.GetCellCenterLocal(
+                    new Vector3Int(occupiedCell.x, occupiedCell.y, 0));
 
                 Gizmos.DrawSphere(localGridPos, 0.2f);
             }

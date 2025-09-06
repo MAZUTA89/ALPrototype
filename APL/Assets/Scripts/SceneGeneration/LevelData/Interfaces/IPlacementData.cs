@@ -7,11 +7,11 @@ namespace ALP.SceneGeneration.LevelData
     {
         CinemachineVirtualCamera Camera { get; }
         ITileMapData ObstaclesMapData { get; }
-        ITileMapData BoundsMapData { get; }
         ITileMapData BoundAreaData { get; }
         ITileMapData InteractableAreaData { get; }
         ITileMapData ExitAreaData { get; }
         ITileMapData TriggerMapData { get; }
+        ITileMapData WakeupData { get; }
         GridLayout BaseGrid { get; }
     }
 }

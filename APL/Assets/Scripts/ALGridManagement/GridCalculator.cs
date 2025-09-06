@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace ALP.ALGridManagement
 {
@@ -241,6 +242,17 @@ namespace ALP.ALGridManagement
             cellPosition = position2Int;
 
             return GridContainer.LightZoneArea.Contains(position2Int);
+        }
+
+        public bool IsInWakeupArea(Vector3 position, out Vector2Int cellPosition)
+        {
+            Vector3Int positionInt = SnapPositionToCellInt(position);
+
+            Vector2Int position2Int = new Vector2Int(positionInt.x, positionInt.y);
+
+            cellPosition = position2Int;
+
+            return GridContainer.WakeupArea.Contains(position2Int);
         }
     }
 }

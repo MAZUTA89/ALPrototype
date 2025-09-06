@@ -40,6 +40,7 @@ namespace ALP.SceneGeneration.Generations
                 PlaceNotObstacleObjectsAtScene(prefabData.BoundsMapData.MapChildrenObjects);
                 PlaceTriggersObjectsAtScene(prefabData);
                 PlaceObstacleObjectsAtScene(prefabData);
+                PlaceWakeupObjectsAtScene(prefabData);
 
                 _cameraObject.Initialize(prefabData.Camera);
 
@@ -61,8 +62,13 @@ namespace ALP.SceneGeneration.Generations
                 Vector3 prefabPos = obj.transform.position;
                 Quaternion rotation = obj.transform.rotation;
 
-                _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
+                GameObject gameObject = _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
                     _gameGrid.Grid.transform);
+
+                if(gameObject.TryGetComponent(out WakeUpFurniture wakeupFurniture))
+                {
+
+                }
             }
         }
 
@@ -102,6 +108,45 @@ namespace ALP.SceneGeneration.Generations
                     _gameGrid.AddObstacle(obstacle);
                 }
             }
+        }
+
+        void PlaceWakeupObjectsAtScene(PlacementPrefabData prefabData)
+        {
+
+            WakeupMapData wakeupData = prefabData.WakeupData as WakeupMapData;
+
+            foreach (GameObject obj in prefabData.WakeupData.MapChildrenObjects)
+            {
+                Vector3 prefabPos = obj.transform.position;
+                Quaternion rotation = obj.transform.rotation;
+
+                GameObject instantObj = _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
+                    _gameGrid.Grid.transform);
+
+                if (instantObj.TryGetComponent(out IObstacle obstacle))
+                {
+                    _gameGrid.AddObstacle(obstacle);
+
+                    if (obj.TryGetComponent(out IWakeupFurniture prefabFurniture))
+                    {
+                        if(obstacle is IWakeupFurniture furniture)
+                        {
+                            _gameGrid.WakeupObjects.Add(furniture, wakeupData.WakeupObjects[prefabFurniture]);
+                        }
+                    }
+                }
+            }
+
+            List<Vector3Int> gridPositions = 
+                new List<Vector3Int>( 
+                    prefabData.WakeupData.GetObjectsGridPositions());
+
+            foreach (var pos in gridPositions)
+            {
+                _gameGrid.AddWakeupPosition(new Vector2Int(pos.x, pos.y));
+            }
+
+
         }
     }
 }

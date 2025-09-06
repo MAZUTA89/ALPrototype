@@ -29,6 +29,10 @@ namespace ALP.ALGridManagement
         public IEnumerable<Vector2Int> LightZoneArea => _lightZoneArea;
 
         public Dictionary<Vector2Int, LightZone> LightZones => _lightZoneObjects;
+
+        public IEnumerable<Vector2Int> WakeupArea => _wakeupArea;
+
+        public Dictionary<IWakeupFurniture, IEnumerable<Vector2Int>> WakeupObjects => _wakeupObjects;
         #endregion
 
         GridLayout _gameSceneGrid;
@@ -42,6 +46,8 @@ namespace ALP.ALGridManagement
         private List<Vector3Int> _exitPositions;
         private List<IObstacle> _obstacles;
         private List<Vector2Int> _lightZoneArea;
+        private Dictionary<IWakeupFurniture, IEnumerable<Vector2Int>> _wakeupObjects;
+        private List<Vector2Int> _wakeupArea;
 
         public GridContainer(Grid gameGrid)
         {
@@ -51,6 +57,9 @@ namespace ALP.ALGridManagement
             _obstacles = new List<IObstacle>();
             _lightZoneArea = new List<Vector2Int>();
             _lightZoneObjects = new Dictionary<Vector2Int, LightZone>();
+            _wakeupArea = new List<Vector2Int>();
+            _wakeupObjects = 
+                new Dictionary<IWakeupFurniture, IEnumerable<Vector2Int>>();
         }
 
         public void Initialize(IPlacementData placementData)
@@ -83,6 +92,16 @@ namespace ALP.ALGridManagement
         public void RemoveLightZonePosition(Vector2Int position)
         {
             _lightZoneArea.Remove(position);
+        }
+
+        public void AddWakeupPosition(Vector2Int position)
+        {
+            _wakeupArea.Add(position);
+        }
+
+        public void RemoveWakeupPosition(Vector2Int position)
+        {
+            _wakeupArea.Remove(position);
         }
     }
 }
