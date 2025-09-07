@@ -53,15 +53,15 @@ namespace AL.ALGridManagement
             bool isMoveAtExitArea = false;
             bool isMoveAtWakeupArea = false;
 
-            if(_lastMovedObstacle is not IPlayer player)
-                HandleIfLightZone(_lastMovedObstacle);
-            else
+            if(_lastMovedObstacle is IPlayer player)
             {
-
                 isMoveAtWakeupArea = HandleIfWakeupArea(player);
 
                 isMoveAtExitArea = HandleIfExitArea(player);
-
+            }    
+            else
+            {
+                HandleIfLightZone(_lastMovedObstacle);
             }
             _lastMovedObstacle.OnEndMoveEvent -= OnEndMoveLastObstacle;
 

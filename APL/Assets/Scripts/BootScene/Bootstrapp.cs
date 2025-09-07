@@ -5,6 +5,9 @@ using Zenject;
 
 namespace ALP.BootScene
 {
+    /// <summary>
+    /// Стартуем отсюда
+    /// </summary>
     public class Bootstrap : MonoBehaviour
     {
         ILevelSystem _levelSystem;

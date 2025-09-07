@@ -1,10 +1,7 @@
 ﻿using AL.ALGridManagement;
 using ALP.GameData.Camera;
-using ALP.InputCode;
 using ALP.InputCode.CameraInput;
 using Cinemachine;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -58,6 +55,7 @@ namespace ALP.CameraCode
 
         private void LateUpdate()
         {
+            ///Если камера находится в зоне взаимодействия - двигаем
             if (_gridSystem.Calculator.IsInInteractableArea(_targetPosition))
             {
                 transform.position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime);

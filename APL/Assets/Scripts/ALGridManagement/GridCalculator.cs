@@ -1,13 +1,9 @@
 ﻿using AL.ALGridManagement;
 using ALP.Interactables;
-using ModestTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace ALP.ALGridManagement
 {
@@ -15,8 +11,8 @@ namespace ALP.ALGridManagement
     {
         public IGridContainer GridContainer { get; private set; }
 
-        public Dictionary<CardinalDirection, Vector3> Directions;
-        public Dictionary<CardinalDirection, Vector3> DirectionsInt;
+        public Dictionary<CardinalDirection, Vector3> Directions {  get; private set; }
+        public Dictionary<CardinalDirection, Vector3> DirectionsInt { get; private set; }
 
         public GridCalculator(IGridContainer gridContainer)
         {
@@ -44,7 +40,10 @@ namespace ALP.ALGridManagement
 
             return mouseWorldPosition;
         }
-
+        /// <summary>
+        /// Получить позицию мыши
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetMouseWorldPosition()
         {
             Plane plane = new Plane(Vector3.up, GridContainer.Grid.transform.position.y);
@@ -72,7 +71,12 @@ namespace ALP.ALGridManagement
 
             return cellPos;
         }
-
+        /// <summary>
+        /// Есть ли препятствия на желаемой позиции
+        /// </summary>
+        /// <param name="targetPosition">желаемая позиция</param>
+        /// <param name="obstacleToMove">препятствие</param>
+        /// <returns></returns>
         public bool IsPositionEmpty(Vector3 targetPosition, IObstacle obstacleToMove)
         {
             Vector3Int targetPositionInt = SnapPositionToCellInt(targetPosition);
@@ -157,6 +161,11 @@ namespace ALP.ALGridManagement
 
             return false;
         }
+        /// <summary>
+        /// Находится ли заданная позиция в сетке взаимодействия
+        /// </summary>
+        /// <param name="targetPosition"></param>
+        /// <returns></returns>
         public bool IsInInteractableArea(Vector3 targetPosition)
         {
             targetPosition = GridContainer.Grid.transform.InverseTransformPoint(targetPosition);
@@ -225,14 +234,16 @@ namespace ALP.ALGridManagement
         {
             Vector3 targetDirection = GetNearestDirection(currentPosition);
 
-
             Vector3 targetPosition = targetDirection + currentPosition;
-
-            // targetPosition = SnapPositionToCell(targetPosition);
 
             return targetPosition;
         }
-
+        /// <summary>
+        /// Находится ли перемещаемый объект в позиции света
+        /// </summary>
+        /// <param name="obstacleTomMove"></param>
+        /// <param name="cellPosition"></param>
+        /// <returns></returns>
         public bool IsInLightZoneArea(IObstacle obstacleTomMove, out Vector2Int cellPosition)
         {
             Vector3Int positionInt = SnapPositionToCellInt(obstacleTomMove.Position);
@@ -251,7 +262,12 @@ namespace ALP.ALGridManagement
 
             return false;
         }
-
+        /// <summary>
+        /// Находится ли позиции в зоне, где игрок просыпается
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="cellPosition"></param>
+        /// <returns></returns>
         public bool IsInWakeupArea(Vector3 position, out Vector2Int cellPosition)
         {
             Vector3Int positionInt = SnapPositionToCellInt(position);
@@ -262,7 +278,11 @@ namespace ALP.ALGridManagement
 
             return GridContainer.WakeupArea.Contains(position2Int);
         }
-
+        /// <summary>
+        /// Находится ли позиция в зоне победы
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         public bool IsInExitArea(Vector3 position)
         {
             Vector3Int positionInt = SnapPositionToCellInt(position);
