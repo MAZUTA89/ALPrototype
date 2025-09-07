@@ -23,6 +23,10 @@ Alien Licencse Prototype
 Уровни строятся с помощью tile map на отдельной сцене, после чего сохраняются в отдельный prefab variant. С помощью prefab variants строится игровой уровень.
 Такой подход позволяет испльзовать любый ассеты на любую тематику для построения игрового уровня.
 
+ЗАПУСК BUILD
+
+Build проекта находится в папке APL\Build\APL.exe
+
 
 <img width="1284" height="895" alt="image" src="https://github.com/user-attachments/assets/8ffff867-cccc-447b-9b3a-6163ea861a51" />
 
