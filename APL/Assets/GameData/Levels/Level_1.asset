@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a2c026dba2df746b07f0c325f4e198, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
+  LevelName: Level 1
   LevelGridPrefab: {fileID: 3625466060758995724, guid: cfdde617fa030e747b1ba85671eed07d, type: 3}
+  LevelTurns: 10

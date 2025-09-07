@@ -1,6 +1,7 @@
 ﻿using ALP.ALGridManagement;
 using ALP.CursorRay;
 using ALP.Interactables;
+using ALP.Leveling;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,12 +15,16 @@ namespace AL.ALGridManagement
         public IGridContainer GridContainer {  get; private set; }
         public GridCalculator Calculator { get; private set; }
 
+        private ILevelSystem _levelSystem;
+
         IObstacle _lastMovedObstacle;
 
-        public GridSystem(IGridContainer gameGrid, ALCursor aLCursor)
+        public GridSystem(IGridContainer gameGrid, ALCursor aLCursor,
+            ILevelSystem levelSystem)
         {
             GridContainer = gameGrid;
             Calculator = new GridCalculator(gameGrid);
+            _levelSystem = levelSystem;
         }
 
         public void MoveObstacle(IObstacle obstacle)
@@ -46,14 +51,22 @@ namespace AL.ALGridManagement
 
         private void OnEndMoveLastObstacle(Vector3 movedPosition)
         {
+            bool isMoveAtExitArea = false;
+            bool isMoveAtWakeupArea = false;
+
             if(_lastMovedObstacle is not IPlayer player)
                 HandleIfLightZone(movedPosition);
             else
             {
-                HandleIfExitArea(player);
-                HandleIfWakeupArea(player);
+
+                isMoveAtExitArea = HandleIfExitArea(player);
+
+                isMoveAtWakeupArea = HandleIfWakeupArea(player);
             }
             _lastMovedObstacle.OnEndMoveEvent -= OnEndMoveLastObstacle;
+
+            if(isMoveAtExitArea == false && isMoveAtWakeupArea == false)
+                _levelSystem.NextMove();
         }
 
         private void HandleIfLightZone(Vector3 movedPosition)
@@ -76,7 +89,7 @@ namespace AL.ALGridManagement
             }
         }
 
-        private void HandleIfWakeupArea(IPlayer player)
+        private bool HandleIfWakeupArea(IPlayer player)
         {
             if (Calculator.IsInWakeupArea(_lastMovedObstacle.Position, out Vector2Int cellPosition))
             {
@@ -85,15 +98,23 @@ namespace AL.ALGridManagement
                 IWakeupFurniture wakeupFurniture = GetWakeupFurniture(cellPosition);
 
                 if (wakeupFurniture != null)
+                {
                     wakeupFurniture.OnPlayerEnter();
+                }
+
+                return true;
             }
+
+            return false;
         }
-        private void HandleIfExitArea(IPlayer player)
+        private bool HandleIfExitArea(IPlayer player)
         {
             if(Calculator.IsInExitArea(_lastMovedObstacle.Position))
             {
                 player.Exit();
+                return true;
             }
+            return false;
         }
 
         private IWakeupFurniture GetWakeupFurniture(Vector2Int cellPosition)

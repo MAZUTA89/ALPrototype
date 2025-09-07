@@ -11,6 +11,7 @@ using ALP.CameraCode;
 using AL.ALGridManagement;
 using ALP.Leveling;
 using ALP.GameData.Leveling;
+using ALP.BootScene;
 
 namespace ALP.Scripts.GameSceneInstallers
 {
@@ -33,23 +34,24 @@ namespace ALP.Scripts.GameSceneInstallers
             _levelGenerator = new ALSceneGenerator(_gameGrid,
                 Container, _gameCameraObject);
 
-            _levelSystem = new LevelingSystem(_levelingListSO,
-                _gameGrid, _levelGenerator);
+            Container.BindInstance(_levelingListSO)
+                .AsSingle();
 
             Container.Bind<GridSystem>().AsSingle();
             Container.BindInstance(_gameGrid).AsSingle();
             Container.BindInstance(_levelGenerator).AsSingle();
             Container.BindInstance(_gameCameraObject).AsSingle();
-            Container.BindInterfacesAndSelfTo<ILevelSystem>()
-                .FromInstance(_levelSystem)
+            Container.BindInterfacesAndSelfTo<LevelingSystem>()
+                .AsSingle();
+
+            Container.Bind<Bootstrap>()
+                .FromComponentInHierarchy(true)
                 .AsSingle();
         }
 
         public override void Start()
         {
             base.Start();
-
-            _levelSystem.ExecuteFirstLevel();
         }
     }
 }
