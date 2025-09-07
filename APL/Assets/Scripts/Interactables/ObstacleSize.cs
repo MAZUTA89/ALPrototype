@@ -50,6 +50,17 @@ namespace ALP.Interactables
                             current2dPos + Vector2Int.up + Vector2Int.right
                         };
                     }
+                case SizeType.Square2x3:
+                    {
+                        return new Vector2Int[]
+                        {
+                            current2dPos,
+                            current2dPos + Vector2Int.up,
+                            current2dPos + Vector2Int.up + Vector2Int.up,
+                            current2dPos + Vector2Int.right,
+                            current2dPos + Vector2Int.up + Vector2Int.up + Vector2Int.right
+                        };
+                    }
             }
 
             return default;
@@ -62,5 +73,6 @@ namespace ALP.Interactables
         Horizontal2,
         Vertical2,
         Square2x2,
+        Square2x3
     }
 }

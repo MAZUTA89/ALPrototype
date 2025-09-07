@@ -54,7 +54,7 @@ namespace AL.ALGridManagement
             bool isMoveAtWakeupArea = false;
 
             if(_lastMovedObstacle is not IPlayer player)
-                HandleIfLightZone(movedPosition);
+                HandleIfLightZone(_lastMovedObstacle);
             else
             {
 
@@ -69,9 +69,9 @@ namespace AL.ALGridManagement
                 _levelSystem.NextMove();
         }
 
-        private void HandleIfLightZone(Vector3 movedPosition)
+        private void HandleIfLightZone(IObstacle movedObstacle)
         {
-            if (Calculator.IsInLightZoneArea(movedPosition, out Vector2Int cellPosition))
+            if (Calculator.IsInLightZoneArea(movedObstacle, out Vector2Int cellPosition))
             {
                 LightZone lightZone = GridContainer.LightZones[cellPosition];
 

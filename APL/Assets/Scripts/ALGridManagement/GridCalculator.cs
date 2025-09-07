@@ -233,15 +233,23 @@ namespace ALP.ALGridManagement
             return targetPosition;
         }
 
-        public bool IsInLightZoneArea(Vector3 position, out Vector2Int cellPosition)
+        public bool IsInLightZoneArea(IObstacle obstacleTomMove, out Vector2Int cellPosition)
         {
-            Vector3Int positionInt = SnapPositionToCellInt(position);
-
+            Vector3Int positionInt = SnapPositionToCellInt(obstacleTomMove.Position);
             Vector2Int position2Int = new Vector2Int(positionInt.x, positionInt.y);
-
             cellPosition = position2Int;
+            Vector2Int[] positions = obstacleTomMove.ObstacleSize.GetGridPositions(positionInt);
 
-            return GridContainer.LightZoneArea.Contains(position2Int);
+            foreach (Vector2Int position in positions)
+            {
+                if (GridContainer.LightZoneArea.Contains(position))
+                {
+                    cellPosition = position;
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool IsInWakeupArea(Vector3 position, out Vector2Int cellPosition)
