@@ -2,6 +2,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace ALP.GameSceneInstallers
@@ -10,9 +11,11 @@ namespace ALP.GameSceneInstallers
     {
         [SerializeField] TextMeshProUGUI _turnText;
         [SerializeField] TextMeshProUGUI _levelNameText;
+        [SerializeField] Button _closeButton;
         public override void InstallBindings()
         {
-            SceneUI sceneUI = new SceneUI(_turnText, _levelNameText);
+            SceneUI sceneUI = new SceneUI(_turnText,
+                _levelNameText, _closeButton);
 
             Container.BindInstance(sceneUI)
                 .AsSingle();
