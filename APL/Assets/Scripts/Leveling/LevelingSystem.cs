@@ -44,6 +44,8 @@ namespace ALP.Leveling
         {
             _gridContainer.Clear();
 
+            _currentLevelIndex++;
+
             if (_currentLevelIndex == _levelingListSO.Levels.Count)
                 _currentLevelIndex = 0;
 
@@ -51,7 +53,6 @@ namespace ALP.Leveling
 
             StartLevel(_currentLevelIndex);
 
-            _currentLevelIndex++;
         }
 
         public void RestartLevel()

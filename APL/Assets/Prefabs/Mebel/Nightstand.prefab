@@ -103,6 +103,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9208395044477644020}
+  - component: {fileID: 8379715697487384714}
+  - component: {fileID: 5840512225257855809}
   m_Layer: 0
   m_Name: Nightstand
   m_TagString: Untagged
@@ -126,6 +128,43 @@ Transform:
   - {fileID: 1640377144875349513}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8379715697487384714
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110742178090582005}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5831144, y: 0.77356863, z: 0.8004974}
+  m_Center: {x: -0.00016437471, y: 0.59000456, z: -0.09975132}
+--- !u!114 &5840512225257855809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110742178090582005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83866d0f770d8ea4db0d664ce6bf4071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FieldGridPos: []
+  FieldGridPivotPos: {x: 0, y: 0}
+  _sizeType: 0
+  _moveTime: 0.7
 --- !u!1001 &7537945397187402700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,7 +191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9106246787774262725, guid: 08cb072512500c3479d2f37b12d4d825, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.362
+      value: 0.592
       objectReference: {fileID: 0}
     - target: {fileID: 9106246787774262725, guid: 08cb072512500c3479d2f37b12d4d825, type: 3}
       propertyPath: m_LocalPosition.z

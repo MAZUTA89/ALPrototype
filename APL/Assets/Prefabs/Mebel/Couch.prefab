@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4968510600575073471}
   - component: {fileID: 7866532073747057089}
-  - component: {fileID: 6750888776931850585}
+  - component: {fileID: 4512217706078445741}
   m_Layer: 0
   m_Name: Couch
   m_TagString: Untagged
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5185148, y: 1, z: 1}
   m_Center: {x: 0.5239852, y: 0.75, z: 0}
---- !u!114 &6750888776931850585
+--- !u!114 &4512217706078445741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,10 +64,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3143829196500384323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 628f1b308762e714698cc28e8582e345, type: 3}
+  m_Script: {fileID: 11500000, guid: 83866d0f770d8ea4db0d664ce6bf4071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FieldGridPos: []
+  FieldGridPivotPos: {x: 0, y: 0}
   _sizeType: 1
+  _moveTime: 0.7
 --- !u!1001 &5430207906328381184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,7 +139,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8439710967142309377, guid: 5c1b01bd0f7d5ab4b82f4611868cfcaf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

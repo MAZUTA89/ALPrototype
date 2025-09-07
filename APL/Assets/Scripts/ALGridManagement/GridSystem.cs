@@ -4,7 +4,6 @@ using ALP.Interactables;
 using ALP.Leveling;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
@@ -59,9 +58,10 @@ namespace AL.ALGridManagement
             else
             {
 
+                isMoveAtWakeupArea = HandleIfWakeupArea(player);
+
                 isMoveAtExitArea = HandleIfExitArea(player);
 
-                isMoveAtWakeupArea = HandleIfWakeupArea(player);
             }
             _lastMovedObstacle.OnEndMoveEvent -= OnEndMoveLastObstacle;
 
