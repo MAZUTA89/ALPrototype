@@ -3,13 +3,8 @@ using ALP.CameraCode;
 using ALP.GameData.GameLevelData;
 using ALP.Interactables;
 using ALP.SceneGeneration.LevelData;
-using Cinemachine;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -20,8 +15,6 @@ namespace ALP.SceneGeneration.Generations
         IGridContainer _gameGrid;
         IInstantiator _instantiator;
         ALCamera _cameraObject;
-
-        public event Action OnSceneGenerated;
 
         public ALSceneGenerator(IGridContainer gameGrid, IInstantiator instantiator,
             ALCamera cameraObject)
@@ -45,8 +38,6 @@ namespace ALP.SceneGeneration.Generations
                 _cameraObject.Initialize(prefabData.Camera);
 
                 _gameGrid.Initialize(prefabData);
-
-                OnSceneGenerated?.Invoke();
             }
             else
             {
@@ -64,11 +55,6 @@ namespace ALP.SceneGeneration.Generations
 
                 GameObject gameObject = _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
                     _gameGrid.Grid.transform);
-
-                if(gameObject.TryGetComponent(out WakeUpFurniture wakeupFurniture))
-                {
-
-                }
             }
         }
 
@@ -112,7 +98,6 @@ namespace ALP.SceneGeneration.Generations
 
         void PlaceWakeupObjectsAtScene(PlacementPrefabData prefabData)
         {
-
             WakeupMapData wakeupData = prefabData.WakeupData as WakeupMapData;
 
             foreach (GameObject obj in prefabData.WakeupData.MapChildrenObjects)
@@ -122,11 +107,12 @@ namespace ALP.SceneGeneration.Generations
 
                 GameObject instantObj = _instantiator.InstantiatePrefab(obj, prefabPos, rotation,
                     _gameGrid.Grid.transform);
-
+                
                 if (instantObj.TryGetComponent(out IObstacle obstacle))
                 {
                     _gameGrid.AddObstacle(obstacle);
 
+                    ///Забираем wakeup объекты и их позиции из префаба в контейнер
                     if (obj.TryGetComponent(out IWakeupFurniture prefabFurniture))
                     {
                         if(obstacle is IWakeupFurniture furniture)
@@ -137,6 +123,8 @@ namespace ALP.SceneGeneration.Generations
                 }
             }
 
+            ///Добавляем wakeup позиции в контейнер
+
             List<Vector3Int> gridPositions = 
                 new List<Vector3Int>( 
                     prefabData.WakeupData.GetObjectsGridPositions());
@@ -145,8 +133,6 @@ namespace ALP.SceneGeneration.Generations
             {
                 _gameGrid.AddWakeupPosition(new Vector2Int(pos.x, pos.y));
             }
-
-
         }
     }
 }

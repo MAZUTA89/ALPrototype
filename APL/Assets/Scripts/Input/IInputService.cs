@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace ALP.InputCode
+﻿namespace ALP.InputCode
 {
     public interface IInputService
     {

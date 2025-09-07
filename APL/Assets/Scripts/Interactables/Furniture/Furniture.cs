@@ -93,6 +93,37 @@ namespace ALP.Interactables
             }
         }
 
+        public void MoveTo(Vector3 position)
+        {
+            IsMoving = true;
+            _targetMovePosition = position;
+
+            StartCoroutine(MoveObstacleCoroutine());
+        }
+
+        private IEnumerator MoveObstacleCoroutine()
+        {
+            Vector3 startPosition = transform.position;
+
+            float elapsedTime = 0f;
+
+            while (elapsedTime < _moveTime)
+            {
+                transform.position = Vector3.Lerp(startPosition, _targetMovePosition,
+                    elapsedTime / _moveTime);
+
+                elapsedTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            transform.position = _targetMovePosition;
+
+            IsMoving = false;
+
+            OnEndMoveEvent?.Invoke(_targetMovePosition);
+        }
+
         void DrawDirection()
         {
             _direction = _gridSystem.Calculator.GetNearestDirection(Position);
@@ -111,7 +142,6 @@ namespace ALP.Interactables
             Debug.DrawRay(Position, directions[3], Color.magenta);
             Debug.DrawRay(Position, _direction, Color.gray);
         }
-
         void DrawOccupiedCells()
         {
             Vector2Int[] occupiedCells = ObstacleSize.GetGridPositions(GridPosition);
@@ -123,37 +153,6 @@ namespace ALP.Interactables
 
                 Gizmos.DrawSphere(localGridPos, 0.2f);
             }
-        }
-
-        public void MoveTo(Vector3 position)
-        {
-            IsMoving = true;
-            _targetMovePosition = position;
-
-            StartCoroutine(MoveObstacleCoroutine());
-        }
-
-        private IEnumerator MoveObstacleCoroutine()
-        {
-            Vector3 startPosition = transform.position;
-
-            float elapsedTime = 0f;
-
-            while(elapsedTime < _moveTime)
-            {
-                transform.position = Vector3.Lerp(startPosition, _targetMovePosition,
-                    elapsedTime / _moveTime);
-
-                elapsedTime += Time.deltaTime;
-
-                yield return null;
-            }
-
-            transform.position = _targetMovePosition;
-
-            IsMoving = false;
-
-            OnEndMoveEvent?.Invoke(_targetMovePosition);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ALP.Interactables
+﻿namespace ALP.Interactables
 {
     public interface IPlayer
     {

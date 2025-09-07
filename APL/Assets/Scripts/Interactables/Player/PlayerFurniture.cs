@@ -1,6 +1,4 @@
 ﻿using ALP.Leveling;
-using System;
-using UnityEngine;
 using Zenject;
 
 namespace ALP.Interactables

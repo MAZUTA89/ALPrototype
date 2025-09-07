@@ -3,11 +3,6 @@ using ALP.GameData.GameLevelData;
 using ALP.GameData.Leveling;
 using ALP.SceneGeneration.Generations;
 using ALP.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ALP.Leveling
 {
@@ -34,8 +29,6 @@ namespace ALP.Leveling
             _currentLevelIndex = 0;
             _currentMoves = 0;
         }
-
-
         public void ExecuteFirstLevel()
         {
             StartLevel(0);
@@ -54,14 +47,12 @@ namespace ALP.Leveling
             StartLevel(_currentLevelIndex);
 
         }
-
         public void RestartLevel()
         {
             _gridContainer.Clear();
 
             StartLevel(_lastLevelIndex);
         }
-
         void StartLevel(int levelIndex)
         {
             LevelSO levelSO = _levelingListSO.Levels[levelIndex];
@@ -76,13 +67,11 @@ namespace ALP.Leveling
                 _sceneUI.SetCurrentTurns(TotalMoves);
             }
         }
-
         public void NextMove()
         {
             _currentMoves++;
 
             _sceneUI.SetCurrentTurns(TotalMoves - _currentMoves);
-
 
             if (_currentMoves == TotalMoves)
                 RestartLevel();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace ALP.Interactables
+﻿namespace ALP.Interactables
 {
     public interface IWakeupFurniture
     {
