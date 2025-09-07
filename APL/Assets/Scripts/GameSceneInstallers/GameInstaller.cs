@@ -19,6 +19,8 @@ namespace ALP.GameSceneInstallers
                 .AsTransient();
             Container.BindInterfacesAndSelfTo<WakeUpFurniture>()
                 .AsTransient();
+            Container.BindInterfacesAndSelfTo<PlayerFurniture>()
+                .AsTransient();
 
             Container.Bind<ALCursor>().
                 FromComponentInHierarchy(true)

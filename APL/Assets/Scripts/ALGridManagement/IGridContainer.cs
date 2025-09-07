@@ -13,7 +13,6 @@ namespace ALP.ALGridManagement
     public interface IGridContainer
     {
         Grid Grid { get; }
-        Dictionary<Vector3Int, GameObject> ObstaclesObjects { get; }
         IEnumerable<IObstacle> Obstacles { get; }
         IEnumerable<Vector3Int> InteractableArea { get; }
         IEnumerable<Vector3Int> ExitArea { get; }
@@ -29,5 +28,6 @@ namespace ALP.ALGridManagement
         void AddWakeupPosition(Vector2Int position);
         void RemoveWakeupPosition(Vector2Int position);
         void Initialize(IPlacementData placementData);
+        void Clear();
     }
 }

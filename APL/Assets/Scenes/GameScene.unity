@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a33222aae29dc44a73d6883e47c530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelingListSO: {fileID: 11400000, guid: de109e11200895d458f00b6489248ce4, type: 2}
   _gameCameraObject: {fileID: 2130128741}
   _levelSO: {fileID: 11400000, guid: 848bfc0a0f8244f42b855a62c8cf70b0, type: 2}
   _gameGridComponent: {fileID: 1388426045}

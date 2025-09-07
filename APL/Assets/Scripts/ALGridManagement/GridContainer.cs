@@ -1,11 +1,8 @@
-﻿using ALP.Interactables;
+﻿using ALP.CameraCode;
+using ALP.Interactables;
 using ALP.SceneGeneration.LevelData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 namespace ALP.ALGridManagement
@@ -14,35 +11,21 @@ namespace ALP.ALGridManagement
     {
         #region InterfaceVariables
         public Grid Grid => _grid;
-
-        public Dictionary<Vector3Int, GameObject> ObstaclesObjects => _obstaclesObjects;
-
-        public Dictionary<Vector3Int, GameObject> BoundsObjects => _boundsObjects;
-
         public IEnumerable<Vector3Int> InteractableArea => _interactablePositions;
-
-        public IEnumerable<Vector3Int> BoundsArea => _boundsPositions;
-
         public IEnumerable<Vector3Int> ExitArea => _exitPositions;
-
         public IEnumerable<IObstacle> Obstacles => _obstacles;
         public IEnumerable<Vector2Int> LightZoneArea => _lightZoneArea;
-
         public Dictionary<Vector2Int, LightZone> LightZones => _lightZoneObjects;
-
         public IEnumerable<Vector2Int> WakeupArea => _wakeupArea;
-
         public Dictionary<IWakeupFurniture, IEnumerable<Vector2Int>> WakeupObjects => _wakeupObjects;
         #endregion
 
         GridLayout _gameSceneGrid;
         Grid _grid;
 
-        private Dictionary<Vector3Int, GameObject> _obstaclesObjects;
         private Dictionary<Vector3Int, GameObject> _boundsObjects;
         private Dictionary<Vector2Int, LightZone> _lightZoneObjects;
         private List<Vector3Int> _interactablePositions;
-        private List<Vector3Int> _boundsPositions;
         private List<Vector3Int> _exitPositions;
         private List<IObstacle> _obstacles;
         private List<Vector2Int> _lightZoneArea;
@@ -52,7 +35,6 @@ namespace ALP.ALGridManagement
         public GridContainer(Grid gameGrid)
         {
             _grid = gameGrid;
-            _obstaclesObjects = new Dictionary<Vector3Int, GameObject>();
             _boundsObjects = new Dictionary<Vector3Int, GameObject>();
             _obstacles = new List<IObstacle>();
             _lightZoneArea = new List<Vector2Int>();
@@ -102,6 +84,26 @@ namespace ALP.ALGridManagement
         public void RemoveWakeupPosition(Vector2Int position)
         {
             _wakeupArea.Remove(position);
+        }
+
+        public void Clear()
+        {
+            _boundsObjects.Clear();
+            _obstacles.Clear();
+            _lightZoneArea.Clear();
+            _lightZoneObjects.Clear();
+            _wakeupArea.Clear();
+            _wakeupObjects.Clear();
+
+            foreach (Transform transform in Grid.transform)
+            {
+                if(transform.gameObject.TryGetComponent(out ALCamera camera))
+                {
+                    continue;
+                }
+
+                GameObject.Destroy(transform.gameObject);
+            }
         }
     }
 }
