@@ -9,13 +9,13 @@ namespace ALP.Leveling
     public class LevelingSystem : ILevelSystem
     {
         public int TotalMoves {get; private set;}
-        LevelingListSO _levelingListSO;
-        IGridContainer _gridContainer;
-        ILevelGenerator _levelGenerator;
-        int _currentMoves;
-        SceneUI _sceneUI;
-        int _lastLevelIndex;
-        int _currentLevelIndex;
+        private LevelingListSO _levelingListSO;
+        private IGridContainer _gridContainer;
+        private ILevelGenerator _levelGenerator;
+        private int _currentMoves;
+        private SceneUI _sceneUI;
+        private int _lastLevelIndex;
+        private int _currentLevelIndex;
 
         public LevelingSystem(LevelingListSO levelingListSO,
             IGridContainer gridContainer,

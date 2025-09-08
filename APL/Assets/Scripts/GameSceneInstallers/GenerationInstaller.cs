@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Zenject;
+﻿using Zenject;
 using UnityEngine;
 using ALP.GameData.GameLevelData;
 using ALP.SceneGeneration.Generations;
-using ALP.SceneGeneration.LevelData;
 using ALP.ALGridManagement;
-using Cinemachine;
 using ALP.CameraCode;
 using AL.ALGridManagement;
 using ALP.Leveling;
@@ -17,14 +13,13 @@ namespace ALP.Scripts.GameSceneInstallers
 {
     public class GenerationInstaller : MonoInstaller
     {
-        [SerializeField] LevelingListSO _levelingListSO;
-        [SerializeField] ALCamera _gameCameraObject;
+        [SerializeField] private LevelingListSO _levelingListSO;
+        [SerializeField] private ALCamera _gameCameraObject;
         [SerializeField] private LevelSO _levelSO;
         [SerializeField] private GridLayout _gameGridComponent;
         IGridContainer _gameGrid;
 
         ILevelGenerator _levelGenerator;
-        ILevelSystem _levelSystem;
         public override void InstallBindings()
         {
             Grid grid = _gameGridComponent.GetComponent<Grid>();
@@ -47,11 +42,6 @@ namespace ALP.Scripts.GameSceneInstallers
             Container.Bind<Bootstrap>()
                 .FromComponentInHierarchy(true)
                 .AsSingle();
-        }
-
-        public override void Start()
-        {
-            base.Start();
         }
     }
 }

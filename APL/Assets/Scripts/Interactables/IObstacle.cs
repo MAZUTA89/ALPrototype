@@ -11,8 +11,8 @@ namespace ALP.Interactables
         Vector3 Position { get; }
         Vector3 StartDragPosition { get; }
         bool IsDrag { get; }
-        ObstacleSize ObstacleSize { get; }
         bool IsMoving { get; }
+        ObstacleSize ObstacleSize { get; }
         void MoveTo(Vector3 position);
     }
 }

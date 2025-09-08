@@ -125,8 +125,7 @@ namespace ALP.SceneGeneration.Generations
 
             ///Добавляем wakeup позиции в контейнер
 
-            List<Vector3Int> gridPositions = 
-                new List<Vector3Int>( 
+            List<Vector3Int> gridPositions = new List<Vector3Int>( 
                     prefabData.WakeupData.GetObjectsGridPositions());
 
             foreach (var pos in gridPositions)

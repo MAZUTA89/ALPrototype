@@ -1,6 +1,5 @@
 ﻿using ALP.CameraCode;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -69,7 +68,6 @@ namespace ALP.CursorRay
             _currentDragObject?.OnMouseStopDrag();
             _currentDragObject = null;
         }
-
         
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Zenject;
-using ALP.InputCode;
 using ALP.InputCode.CameraInput;
 using ALP.InputCode.MouseInput;
 
